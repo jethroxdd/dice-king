@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://chur67s2nhpxn"]
+
+[node name="test_ui" type="Control"]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerStats" type="Label" parent="."]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 76.0
+offset_right = 113.0
+offset_bottom = 99.0
+text = "Здровье: $d
+Щит: $d
+Эффекты: %s"
+
+[node name="EnemyStats" type="Label" parent="."]
+layout_mode = 0
+offset_left = 937.0
+offset_top = 81.0
+offset_right = 1032.0
+offset_bottom = 156.0
+text = "Здровье: %d
+Щит: %d
+Эффекты: %s"
+
+[node name="ApplyBtn" type="Button" parent="."]
+layout_mode = 0
+offset_left = 504.0
+offset_top = 232.0
+offset_right = 648.0
+offset_bottom = 263.0
+text = "Apply"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -32.0
+offset_right = 72.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="energy" type="Label" parent="."]
+layout_mode = 0
+offset_left = 528.0
+offset_top = 264.0
+offset_right = 616.0
+offset_bottom = 287.0
+text = "Energy: %d"
+horizontal_alignment = 1
+
+[node name="log" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 192.0
+offset_right = 368.0
+offset_bottom = 592.0
+scroll_following = true
+
+[node name="intention" type="Label" parent="."]
+layout_mode = 0
+offset_left = 960.0
+offset_top = 32.0
+offset_right = 1010.0
+offset_bottom = 55.0
+text = "%d %s"
+horizontal_alignment = 1

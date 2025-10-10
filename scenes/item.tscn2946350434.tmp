@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://dfxr6u4ijo3ga"]
+
+[ext_resource type="Script" uid="uid://l785f0vix5b4" path="res://scripts/item.gd" id="1_4gq7n"]
+[ext_resource type="Texture2D" uid="uid://bwoqi1yu4xgdk" path="res://sprites/selected_slot.png" id="2_6muww"]
+[ext_resource type="Texture2D" uid="uid://d1nnje40fmxij" path="res://sprites/shield_icon.png" id="2_s8enn"]
+
+[node name="Item" type="Control"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 64.0
+script = ExtResource("1_4gq7n")
+
+[node name="Icon" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Border" type="TextureRect" parent="Icon"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_6muww")
+
+[node name="Texture" type="TextureRect" parent="Icon"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_s8enn")
+
+[node name="Button" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]
+[connection signal="button_up" from="Button" to="." method="_on_button_button_up"]

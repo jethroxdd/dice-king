@@ -1,0 +1,90 @@
+[gd_scene load_steps=3 format=3 uid="uid://ljebgi0pxkpy"]
+
+[ext_resource type="Script" uid="uid://6oob53npap6b" path="res://core/ui/ui.gd" id="1_x4jx1"]
+[ext_resource type="PackedScene" uid="uid://dfpogmfgqdhj3" path="res://scenes/slot.tscn" id="2_yev5y"]
+
+[node name="UI" type="Control"]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x4jx1")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -103.0
+offset_top = -202.0
+offset_right = 103.0
+offset_bottom = -140.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "add item"
+
+[node name="Button2" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 45.0
+offset_top = -110.0
+offset_right = 251.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "remove slot"
+
+[node name="Button3" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -242.0
+offset_top = -110.0
+offset_right = -36.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "add slot"
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -236.0
+offset_top = -119.0
+offset_right = 236.0
+offset_bottom = 119.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 7
+
+[node name="Slot" parent="GridContainer" instance=ExtResource("2_yev5y")]
+layout_mode = 2
+
+[node name="Slot2" parent="GridContainer" instance=ExtResource("2_yev5y")]
+layout_mode = 2
+
+[node name="Slot3" parent="GridContainer" instance=ExtResource("2_yev5y")]
+layout_mode = 2
+
+[node name="Slot5" parent="GridContainer" instance=ExtResource("2_yev5y")]
+layout_mode = 2
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Button3" to="." method="_on_button_3_pressed"]
