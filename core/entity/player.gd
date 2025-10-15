@@ -7,7 +7,7 @@ var dice: Array[Die] = []
 var artifacts: Array = []
 
 func _init():
-	super(100)
+	super("Player", 100)
 	energy = 3
 	max_energy = 3
 

@@ -5,12 +5,12 @@ var attack_damage: int
 var ai_type: String = "basic" # basic, aggressive, defensive, etc.
 var intention: Dictionary
 
-func _init(initial_health: int, damage: int):
-	super(initial_health)
+func _init(enemy_name: String, initial_health: int, damage: int):
+	super(enemy_name, initial_health)
 	attack_damage = damage
 
 func make_move() -> Dictionary:
-	# Простой AI - просто атакует
+	# Простой AI
 	var attack1 = {
 		"type": "damage", 
 		"value": attack_damage,
@@ -26,7 +26,12 @@ func make_move() -> Dictionary:
 		"value": 10,
 		"description": "Защищается"
 	}
-	return [attack1, attack2, deffense1][randi() % 3]
+	var deffense2 = {
+		"type": "shield", 
+		"value": 15,
+		"description": "Защищается"
+	}
+	return [attack1, attack2, deffense1, deffense2][randi() % 4]
 	
 func start_round():
 	# Щит сбрасывается каждый раунд (можно изменить артефактом)
