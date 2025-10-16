@@ -144,4 +144,4 @@ func get_effects_string() -> String:
 	var effect_strings: Array[String] = []
 	for effect in effects:
 		effect_strings.append(effect._to_string())
-	return ", ".join(PackedStringArray(effect_strings))
+	return "\n".join(PackedStringArray(effect_strings))

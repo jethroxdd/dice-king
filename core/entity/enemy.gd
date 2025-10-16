@@ -2,8 +2,11 @@ class_name Enemy
 extends Entity
 
 var attack_damage: int
-var ai_type: String = "basic" # basic, aggressive, defensive, etc.
-var intention: Dictionary
+var intention: Dictionary = {
+		"type": "none", 
+		"value": 0,
+		"description": "Intention description"
+	}
 
 func _init(enemy_name: String, initial_health: int, damage: int):
 	super(enemy_name, initial_health)
@@ -31,7 +34,8 @@ func make_move() -> Dictionary:
 		"value": 15,
 		"description": "Защищается"
 	}
-	return [attack1, attack2, deffense1, deffense2][randi() % 4]
+	var result = [attack1, attack2, deffense1, deffense2][randi() % 4]
+	return result
 	
 func start_round():
 	# Щит сбрасывается каждый раунд (можно изменить артефактом)

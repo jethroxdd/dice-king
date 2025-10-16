@@ -4,14 +4,19 @@ extends RefCounted
 
 # Ссылки на участников боя
 var player: Player
-var enemy: Enemy
+var enemies: Array
+var target: Enemy
 # Текущий номер раунда (начинается с 0)
 var current_round: int = 0
 
 # Конструктор, принимает ссылки на игрока и противника
-func _init(player_ref: Player, enemy_ref: Enemy):
+func _init(player_ref: Player, enemies_ref: Array):
 	player = player_ref
-	enemy = enemy_ref
+	enemies = enemies_ref
+	set_target(0)
+
+func set_target(new_target_idx: int):
+	target = enemies[new_target_idx]
 
 # Начало нового раунда боя
 func start_round():
@@ -19,7 +24,8 @@ func start_round():
 	# Обновляем состояние игрока
 	player.start_round()
 	# Противник выбирает действие для этого раунда
-	enemy.intention = enemy.make_move()
+	for enemy in enemies:
+		enemy.intention = enemy.make_move()
 
 # Обработка броска игрока
 func process_player_roll(die_index: int) -> Dictionary:
@@ -31,35 +37,42 @@ func process_player_roll(die_index: int) -> Dictionary:
 		return {}
 
 	# Применяем эффект руны с полученным значением
-	result["rune"].apply(player, enemy, result["face"])
+	result["rune"].apply(player, target, result["face"])
 	return result
 
 # Обработка хода противника
-func process_enemy_turn() -> Dictionary:
-	var result = enemy.intention
+func process_enemy_turn():
+	for enemy in enemies:
+		enemy.start_round()
+		var result = enemy.intention
 	
-	# Проверяем наличие запланированного действия
-	if result.is_empty():
-		return {}
+		# Проверяем наличие запланированного действия
+		if result.is_empty():
+			return {}
 	
 	# Выполняем действие в зависимости от типа
-	match result["type"]:
-		"damage":
-			player.take_damage(result["value"])
-		"shield":
-			enemy.shield += result["value"]
-		"heal":
-			enemy.heal(result["value"])
-	return result
+		match result["type"]:
+			"damage":
+				player.take_damage(result["value"])
+			"shield":
+				enemy.shield += result["value"]
+			"heal":
+				enemy.heal(result["value"])
 
 # Проверка окончания боя
 func is_battle_over() -> bool:
-	return player.health <= 0 or enemy.health <= 0
+	var is_any_enemy_alive = false
+	for enemy in enemies:
+		if enemy.health > 0:
+			is_any_enemy_alive = true
+	return player.health <= 0 or not is_any_enemy_alive
 
 # Определение победителя
 func get_winner() -> String:
 	if player.health <= 0:
 		return "enemy"
-	elif enemy.health <= 0:
-		return "player"
+	else:
+		for enemy in enemies:
+			if enemy.health <= 0:
+				return "player"
 	return ""  # Пустая строка если бой продолжается

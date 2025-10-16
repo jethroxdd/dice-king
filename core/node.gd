@@ -3,10 +3,13 @@ extends Node
 
 # Создаем экземпляры игрока и врага с начальными параметрами
 var player = Player.new()
-var enemy = Enemy.new("Крыса", 50, 5)  # Здоровье: 50, Урон: 5
+var enemies = [
+	Enemy.new("Крыса", 50, 5),
+	Enemy.new("Крыса", 50, 5)
+	]  # Здоровье: 50, Урон: 5
 
 # Инициализируем менеджер боя между игроком и врагом
-var battle = BattleManager.new(player, enemy)
+var battle = BattleManager.new(player, enemies)
 
 var logs = ""  # Переменная для хранения логов боя
 
@@ -15,7 +18,7 @@ func _ready():
 	# Атакующая кость (D6) с рунами урона на всех гранях
 	var attack_die = Die.new(6, [DamageRune1.new(), DamageRune1.new(), PoisonRune.new(), PoisonRune.new(), PoisonRune.new(), PoisonRune.new()])
 	# Защитная кость (D4) с комбинацией пустых рун и рун защиты
-	var shield_die = Die.new(4, [EmptyRune.new(), ShieldRune1.new()])
+	var shield_die = Die.new(4, [ShieldRune1.new(), ShieldRune1.new(), ShieldRune1.new(), ShieldRune1.new()])
 	
 	# Добавляем созданные кости в инвентарь игрока
 	player.add_die(attack_die)
@@ -23,6 +26,7 @@ func _ready():
 	
 	# Создаем UI элементы для управления костями
 	create_buttons(len(player.dice))
+	create_enemies()
 	# Подключаем сигнал кнопки применения хода
 	$test_ui/ApplyBtn.pressed.connect(apply)
 	
@@ -47,12 +51,23 @@ func create_buttons(button_count: int):
 		button.pressed.connect(die_roll.bind(i))
 		$test_ui/HBoxContainer.add_child(button)  # Добавляем в контейнер
 
+func create_enemies():
+	var i = 0
+	for enemy in enemies:
+		var enemy_ui = preload("res://scenes/enemy_ui.tscn").instantiate()
+		enemy_ui.enemy = enemy
+		if i == 0: enemy_ui.select()
+		enemy_ui.selected.connect(select_target_btn.bind(i))
+		$test_ui/HBoxContainer2.add_child(enemy_ui)
+		i += 1
+
 # Обновляет отображение статистики персонажей
 func update_stats():
 	var player_str = "Здровье: %d\nЩит: %d\nЭффекты: %s" % [player.health, player.shield, player.get_effects_string()]
-	var enemy_str = "Здровье: %d\nЩит: %d\nЭффекты: %s" % [enemy.health, enemy.shield, enemy.get_effects_string()]
 	$test_ui/PlayerStats.text = player_str
-	$test_ui/EnemyStats.text = enemy_str
+	for enemy_ui in $test_ui/HBoxContainer2.get_children():
+		enemy_ui.update_stats()
+		enemy_ui.update_intention()
 
 # Обновляет отображение энергии игрока
 func update_energy():
@@ -71,10 +86,6 @@ func update_log_effect(sorce: Entity, applyed_effects: Dictionary):
 			"poison":
 				update_log("%s получил %d урона ядом" % [sorce.name, effect_value])
 
-# Обновляет отображение намерений врага
-func update_enemy_intention(text):
-	$test_ui/intention.text = text
-
 # Обрабатывает бросок конкретной кости игроком
 func die_roll(i: int):
 	# Просим BattleManager обработать бросок
@@ -87,6 +98,9 @@ func die_roll(i: int):
 	update_stats()
 	update_energy()
 
+func select_target_btn(idx):
+	battle.set_target(idx)
+
 # Обрабатывает завершение хода игрока
 func apply():
 	var applyed_effects: Dictionary = {}
@@ -95,13 +109,14 @@ func apply():
 	update_log_effect(player, applyed_effects)
 
 	# Враг выполняет свой ход
-	enemy.start_round()
 	battle.process_enemy_turn()
-	update_log("Враг: %s" % enemy.intention["description"])
+	for enemy in enemies:
+		update_log("Враг: %s" % enemy.intention["description"])
 
 	# Активация эфффектов противника
-	applyed_effects = enemy.apply_effects()
-	update_log_effect(enemy, applyed_effects)
+	for enemy in enemies:
+		applyed_effects = enemy.apply_effects()
+		update_log_effect(enemy, applyed_effects)
 	
 	# Переходим к следующему раунду
 	next_round()
@@ -113,4 +128,3 @@ func next_round():
 	# Обновляем все элементы интерфейса
 	update_energy()
 	update_stats()
-	update_enemy_intention(enemy.intention["description"])

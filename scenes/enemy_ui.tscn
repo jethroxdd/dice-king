@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://1ievs7t1qkpw"]
+
+[ext_resource type="Script" uid="uid://bacts77vccdde" path="res://core/ui/enemy_ui.gd" id="1_6lg04"]
+
+[node name="EnemyUI" type="Control"]
+custom_minimum_size = Vector2(128, 192)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 192.0
+script = ExtResource("1_6lg04")
+
+[node name="BGPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SelectedPanel" type="Panel" parent="."]
+visible = false
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StatsRLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -128.0
+offset_right = 128.0
+grow_vertical = 0
+text = "Здровье: $d
+Щит: $d
+Эффекты: %s"
+
+[node name="IntentionRLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+offset_right = 128.0
+offset_bottom = 64.0
+text = "Intention"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_right = 64.0
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "select"
