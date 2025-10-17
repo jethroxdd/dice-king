@@ -52,7 +52,7 @@ func get_sides() -> int:
 ## Вычисляемое свойство[br]
 ## Возвращает текстовое описание всех граней кости в формате, пригодном для подсказки в UI.[br]
 ## Каждая строка содержит описание руны на соответствующей грани.
-var tool_tip_text: String:
+var tooltip_text: String:
 	get:
 		var text = ""
 		for i in range(sides):
