@@ -5,6 +5,7 @@ extends Node
 var player = Player.new()
 var enemies = [
 	Enemy.new("Крыса", 50, 5),
+	Enemy.new("Крыса", 50, 5),
 	Enemy.new("Крыса", 50, 5)
 	]  # Здоровье: 50, Урон: 5
 
@@ -16,13 +17,16 @@ var logs = ""  # Переменная для хранения логов боя
 func _ready():
 	# Создаем игровые кости с разными характеристиками:
 	# Атакующая кость (D6) с рунами урона на всех гранях
-	var attack_die = Die.new(6, [DamageRune1.new(), DamageRune1.new(), PoisonRune.new(), PoisonRune.new(), PoisonRune.new(), PoisonRune.new()])
+	var attack_die = Die.new(6, [DamageRune1.new(), DamageRune1.new(), DamageRune1.new(), DamageRune1.new(), DamageRune1.new(), DamageRune1.new()])
 	# Защитная кость (D4) с комбинацией пустых рун и рун защиты
 	var shield_die = Die.new(4, [ShieldRune1.new(), ShieldRune1.new(), ShieldRune1.new(), ShieldRune1.new()])
+	# Яддовитая кость (D4) с комбинацией пустых рун и рун защиты
+	var poison_die = Die.new(4, [PoisonRune.new(), PoisonRune.new(), PoisonRune.new(), PoisonRune.new()])
 	
 	# Добавляем созданные кости в инвентарь игрока
 	player.add_die(attack_die)
 	player.add_die(shield_die)
+	player.add_die(poison_die)
 	
 	# Создаем UI элементы для управления костями
 	create_buttons(len(player.dice))
@@ -39,7 +43,9 @@ func _ready():
 # Создает кнопки для каждой кости в инвентаре игрока
 func create_buttons(button_count: int):
 	# Получаем всплывающие подсказки для каждой кости
-	var dice_tooltip_text = [player.dice[0].tool_tip_text, player.dice[1].tool_tip_text]
+	var dice_tooltip_text = []
+	for i in range(len(player.dice)):
+		dice_tooltip_text.append(player.dice[i].tooltip_text)
 	
 	for i in range(button_count):
 		# Создаем экземпляр кнопки из префаба
