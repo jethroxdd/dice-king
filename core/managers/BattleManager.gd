@@ -4,13 +4,13 @@ extends RefCounted
 
 # Ссылки на участников боя
 var player: Player
-var enemies: Array
+var enemies: Array[Enemy]
 var target: Enemy
 # Текущий номер раунда (начинается с 0)
 var current_round: int = 0
 
 # Конструктор, принимает ссылки на игрока и противника
-func _init(player_ref: Player, enemies_ref: Array):
+func _init(player_ref: Player, enemies_ref: Array[Enemy]):
 	player = player_ref
 	enemies = enemies_ref
 	set_target(0)
@@ -25,7 +25,7 @@ func start_round():
 	player.start_round()
 	# Противник выбирает действие для этого раунда
 	for enemy in enemies:
-		enemy.intention = enemy.make_move()
+		enemy.make_move()
 
 # Обработка броска игрока
 func process_player_roll(die_index: int) -> Dictionary:
@@ -43,19 +43,21 @@ func process_player_roll(die_index: int) -> Dictionary:
 # Обработка хода противника
 func process_enemy_turn():
 	for enemy in enemies:
+		if enemy.health <= 0:
+			continue
 		enemy.start_round()
-		var result = enemy.intention
+		var result: Intention = enemy.intention
 	
 		# Проверяем наличие запланированного действия
-		if result.is_empty():
-			return {}
+		if result.type == "none":
+			return
 	
 	# Выполняем действие в зависимости от типа
-		match result["type"]:
+		match result.type:
 			"damage":
 				player.take_damage(result["value"])
 			"shield":
-				enemy.shield += result["value"]
+				enemy.take_shield(result["value"])
 			"heal":
 				enemy.heal(result["value"])
 
@@ -69,10 +71,9 @@ func is_battle_over() -> bool:
 
 # Определение победителя
 func get_winner() -> String:
+	if not is_battle_over():
+		return ""
 	if player.health <= 0:
 		return "enemy"
 	else:
-		for enemy in enemies:
-			if enemy.health <= 0:
-				return "player"
-	return ""  # Пустая строка если бой продолжается
+		return "player"

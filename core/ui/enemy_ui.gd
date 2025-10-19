@@ -14,7 +14,7 @@ func update_stats():
 	$StatsRLabel.text = enemy_str
 
 func update_intention():
-	$IntentionRLabel.text = enemy.intention["description"]
+	$IntentionRLabel.text = enemy.intention.text
 
 func unselect():
 	$SelectedPanel.visible = false

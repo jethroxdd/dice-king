@@ -2,17 +2,17 @@
 extends Node
 
 # Создаем экземпляры игрока и врага с начальными параметрами
-var player = Player.new()
-var enemies = [
-	Enemy.new("Крыса", 50, 5),
-	Enemy.new("Крыса", 50, 5),
-	Enemy.new("Крыса", 50, 5)
-	]  # Здоровье: 50, Урон: 5
+var player: Player = Player.new()
+var enemies: Array[Enemy] = [
+	WeakGoblin.new(),
+	WeakGoblin.new(),
+	WeakGoblin.new()
+	]
 
 # Инициализируем менеджер боя между игроком и врагом
-var battle = BattleManager.new(player, enemies)
+var battle: BattleManager = BattleManager.new(player, enemies)
 
-var logs = ""  # Переменная для хранения логов боя
+var logs: String = ""  # Переменная для хранения логов боя
 
 func _ready():
 	# Создаем игровые кости с разными характеристиками:
@@ -39,6 +39,13 @@ func _ready():
 	update_energy()
 	update_log("=== НАЧАЛО БОЯ ===")
 	next_round()  # Запускаем первый раунд
+
+func _process(_delta):
+	var winner = battle.get_winner()
+	if not winner == "":
+		$WinnerLbl.text = "%s wins" % winner
+		$WinnerLbl.visible = true
+		$test_ui.visible = false
 
 # Создает кнопки для каждой кости в инвентаре игрока
 func create_buttons(button_count: int):
@@ -117,7 +124,7 @@ func apply():
 	# Враг выполняет свой ход
 	battle.process_enemy_turn()
 	for enemy in enemies:
-		update_log("Враг: %s" % enemy.intention["description"])
+		update_log("Враг: %s" % enemy.intention.log_text)
 
 	# Активация эфффектов противника
 	for enemy in enemies:

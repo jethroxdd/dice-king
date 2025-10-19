@@ -145,3 +145,11 @@ func get_effects_string() -> String:
 	for effect in effects:
 		effect_strings.append(effect._to_string())
 	return "\n".join(PackedStringArray(effect_strings))
+
+## [b]Получить случайны элемент массива[/b][br]
+## [br]
+## [b]Возвращает:[/b] случайный элемент массива
+func _get_random_item(arr: Array):
+	if arr.size() == 0:
+		return null
+	return arr[randi() % arr.size()]
