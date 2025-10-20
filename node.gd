@@ -1,4 +1,4 @@
-# main.gd (пример тестирования)
+# main.gd
 extends Node
 
 # Создаем игрока
