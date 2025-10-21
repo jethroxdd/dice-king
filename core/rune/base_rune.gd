@@ -19,7 +19,7 @@ var tags: Array = []
 ## [b]Параметры:[/b][br]
 ## [param _face] - значение на кубике[br]
 ## [br]
-## [b]Возвращает:[/b] числовой результат активации[br]
+## [b]Возвращает:[/b] [param int] числовой результат активации[br]
 ## [br]
 ## [i]Переопределите этот метод в дочерних классах[/i][br]
 func calculate(_face: int):
@@ -51,5 +51,5 @@ func get_description(_face: int) -> String:
 ## [param _face] - значение на кубике[br]
 ## [br]
 ## [b]Возвращает:[/b] текстовую запись для игрового лога
-func get_log(_face) -> String:
+func _get_log_text(_face) -> String:
 	return ""

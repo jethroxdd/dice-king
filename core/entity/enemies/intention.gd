@@ -12,5 +12,8 @@ func _init(i_type: String, i_value: int, i_text: String, i_log_text: String):
 	text = i_text
 	log_text = i_log_text
 
-static func default() -> Intention:
+static func get_default() -> Intention:
 	return Intention.new("none", 0, "none", "none")
+
+static func get_died() -> Intention:
+	return Intention.new("died", 0, "Повержен", "")

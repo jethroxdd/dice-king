@@ -10,10 +10,10 @@ func calculate(_face: int):
 	return 0
 
 func apply(_sorce: Entity, _target: Entity, _face: int):
-	pass
+	Global.update_log.emit(_get_log_text(_face))
 
 func get_description(_face: int):
 	return "Пустой слот руны"
 
-func get_log(_face):
+func _get_log_text(_face) -> String:
 	return "Ничего не произошло"

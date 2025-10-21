@@ -24,4 +24,4 @@ func intenton_AI() -> Intention:
 				Intention.new("shield", 5, "Защищается", "Получает 5 щита")
 				]
 			return _get_random_item(moves)
-	return Intention.default()
+	return Intention.get_default()

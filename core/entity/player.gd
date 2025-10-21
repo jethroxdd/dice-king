@@ -19,12 +19,11 @@ func start_round():
 func can_roll() -> bool:
 	return energy > 0
 
-func roll_die(die_index: int) -> Dictionary:
+func roll_die(die_index: int) -> RollResult:
 	if not can_roll():
-		return {}
+		return RollResult.default()
 	if die_index < 0 or die_index >= dice.size():
-		return {}
-	
+		return RollResult.default()
 	energy -= 1
 	return dice[die_index].roll()
 

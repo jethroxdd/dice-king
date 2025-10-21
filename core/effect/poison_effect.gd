@@ -3,20 +3,25 @@
 class_name PoisonEffect
 extends BaseEffect
 
-func _init(effect_value: int = 0):
-	self.name = 'Яд'
-	self.effect_type = 'poison'
-	self.value = effect_value
-	self.duration = effect_value
+func _init(new_effect_value: int = 0):
+	name = 'Яд'
+	tag = 'poison'
+	order = 0
+	value = new_effect_value
+	duration = new_effect_value
 
 func apply(target: Entity) -> int:
 	target.take_true_damage(value)
+	Global.update_log.emit("%s %s" % [target.name, _get_log_text()])
 	return value
 
 func stack(new_effect: BaseEffect):
-	self.value += new_effect.value
-	self.duration = self.value
+	value += new_effect.value
+	duration = value
 
 func tick():
-	self.value = max(0, value-1)
-	self.duration = value
+	value = max(0, value-1)
+	duration = value
+
+func _get_log_text() -> String:
+	return "получил %d урона ядом" % value

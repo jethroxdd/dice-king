@@ -1,79 +1,149 @@
-# Класс для управления логикой боя между игроком и противником
+## Класс для управления логикой боя между игроком и противником[br]
+## Обрабатывает очередность ходов, применение способностей и определение победителя
 class_name BattleManager
 extends RefCounted
 
 # Ссылки на участников боя
+## Ссылка на игрока
 var player: Player
+## Массив врагов
 var enemies: Array[Enemy]
+## Текуйщий выбранны враг[br]
+## По умолчанию первый
 var target: Enemy
-# Текущий номер раунда (начинается с 0)
+## Текущий номер раунда (начинается с 0)[br]
+## Инкрементируется каждый раз при вызове [method start_round]
 var current_round: int = 0
 
-# Конструктор, принимает ссылки на игрока и противника
+## Конструктор, принимает ссылки на игрока и противника[br]
+## [br]
+## [b]Параметры:[/b][br]
+## [param player_ref] - Ссылка на объект [Player][br]
+## [param enemies_ref] - Массив объектов [Enemy]
 func _init(player_ref: Player, enemies_ref: Array[Enemy]):
 	player = player_ref
 	enemies = enemies_ref
 	set_target(0)
 
+## Установка текущей цели для атак игрока[br]
+## [br]
+## [b]Параметры:[/b][br]
+## [param new_target_idx] - Индекс цели в массиве [member enemies]
 func set_target(new_target_idx: int):
 	target = enemies[new_target_idx]
 
-# Начало нового раунда боя
+## Начало нового раунда боя[br]
+## [br]
+## [b]Что делает:[/b][br]
+## Увеличивает [member current_round] на 1[br]
+## Обновляет намерения всех противников через [method Enemy.update_intention]
 func start_round():
 	current_round += 1
-	# Обновляем состояние игрока
-	player.start_round()
-	# Противник выбирает действие для этого раунда
 	for enemy in enemies:
-		enemy.make_move()
+		enemy.update_intention()
 
-# Обработка броска игрока
-func process_player_roll(die_index: int) -> Dictionary:
-	# Получаем результат броска кубика
-	var result = player.roll_die(die_index)
+## Обработка начала раунда игрока[br]
+## [br]
+## [b]Что делает:[/b][br]
+## Вызывает [method Player.start_round][br]
+## Применяет эффекты фазы 0 через [method Player.apply_effects]
+func start_player_round():
+	player.start_round()
+	player.apply_effects(0)
 
-	# Проверяем валидность результата
-	if result.is_empty():
-		return {}
+## Обработка завершения раунда игрока[br]
+## [br]
+## [b]Что делает:[/b][br]
+## Применяет эффекты фазы 1 через [method Player.apply_effects]
+func end_player_round():
+	player.apply_effects(1)
+	
+## Обработка начала раунда противников[br]
+## [br]
+## [b]Что делает:[/b][br]
+## Обрабатывает ходы противников через [method process_enemy_turn][br]
+## Выводит в лог намерения всех противников[br]
+## Применяет эффекты фазы 0 через [method Enemy.apply_effects]
+func start_enemies_round():
+	process_enemy_turn()
+	for enemy in enemies:
+		Global.update_log.emit("%s: %s" % [enemy.name, enemy.intention.log_text])
+	for enemy in enemies:
+		enemy.apply_effects(0)
 
-	# Применяем эффект руны с полученным значением
-	result["rune"].apply(player, target, result["face"])
-	return result
+## Обработка завершения раунда противников[br]
+## [br]
+## [b]Что делает:[/b][br]
+## Применяет эффекты фазы 1 через [method Enemy.apply_effects]
+func end_enemies_round():
+	for enemy in enemies:
+		enemy.apply_effects(1)
 
-# Обработка хода противника
+## Обработка броска игрока[br]
+## [br]
+## [b]Параметры:[/b][br]
+## [param die_index] - Индекс кубика в коллекции игрока[br]
+## [br]
+## [b]Что делает:[/b][br]
+## Получает результат броска через [method Player.roll_die][br]
+## Проверяет валидность результата[br]
+## Применяет эффект руны через [method Rune.apply]
+func process_player_roll(die_index: int):
+	var roll_result: RollResult = player.roll_die(die_index)
+
+	if roll_result.is_default():
+		return
+		
+	roll_result.rune.apply(player, target, roll_result.face)
+
+## Обработка хода противника[br]
+## [br]
+## [b]Что делает:[/b][br]
+## Для каждого живого противника:[br]
+## Определяет тип намерения через [member Intention.type][br]
+## Выполняет соответствующее действие:[br]
+## [code]"damage"[/code]: наносит урон игроку через [method Player.take_damage][br]
+## [code]"shield"[/code]: добавляет защиту через [method Enemy.take_shield][br]
+## [code]"heal"[/code]: восстанавливает здоровье через [method Enemy.heal]
 func process_enemy_turn():
 	for enemy in enemies:
-		if enemy.health <= 0:
+		if not enemy.is_alive:
 			continue
 		enemy.start_round()
-		var result: Intention = enemy.intention
+		var intention: Intention = enemy.intention
 	
-		# Проверяем наличие запланированного действия
-		if result.type == "none":
-			return
-	
-	# Выполняем действие в зависимости от типа
-		match result.type:
+		match intention.type:
 			"damage":
-				player.take_damage(result["value"])
+				player.take_damage(intention.value)
 			"shield":
-				enemy.take_shield(result["value"])
+				enemy.take_shield(intention.value)
 			"heal":
-				enemy.heal(result["value"])
+				enemy.heal(intention.value)
 
-# Проверка окончания боя
+## Проверка окончания боя[br]
+## [br]
+## [b]Возвращает:[/b] [code]bool[/code] - [code]true[/code] если бой завершен, иначе [code]false[/code][br]
+## [br]
+## [b]Условия завершения:[/b][br]
+## Здоровье игрока [code]<= 0[/code] ИЛИ[br]
+## Все противники мертвы
 func is_battle_over() -> bool:
 	var is_any_enemy_alive = false
 	for enemy in enemies:
-		if enemy.health > 0:
+		if enemy.is_alive:
 			is_any_enemy_alive = true
 	return player.health <= 0 or not is_any_enemy_alive
 
-# Определение победителя
+## Определение победителя[br]
+## [br]
+## [b]Возвращает:[/b] [code]String[/code] - Строка с идентификатором победителя:[br]
+## [code]"player"[/code] - если победил игрок[br]
+## [code]"enemy"[/code] - если победили противники[br]
+## [code]""[/code] - если бой еще не окончен
 func get_winner() -> String:
 	if not is_battle_over():
 		return ""
-	if player.health <= 0:
+	if not player.is_alive:
 		return "enemy"
 	else:
 		return "player"

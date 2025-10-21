@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://tr1wf8gwvgtg"]
+
+[ext_resource type="Script" uid="uid://chpbaffub2gja" path="res://core/node.gd" id="1_lride"]
+[ext_resource type="PackedScene" uid="uid://chur67s2nhpxn" path="res://scenes/test_ui.tscn" id="2_2ymqe"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lride"]
+font_size = 40
+
+[node name="BattleEncounter" type="Node2D"]
+script = ExtResource("1_lride")
+
+[node name="test_ui" parent="." instance=ExtResource("2_2ymqe")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="WinnerLbl" type="Label" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 365.0
+offset_top = 231.0
+offset_right = 788.0
+offset_bottom = 426.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+text = "Player"
+label_settings = SubResource("LabelSettings_lride")
+horizontal_alignment = 1
+vertical_alignment = 1

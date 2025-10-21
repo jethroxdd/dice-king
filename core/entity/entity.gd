@@ -25,6 +25,10 @@ var shield: int = 0
 ## Содержит все текущие эффекты типа [BaseEffect]
 var effects: Array[BaseEffect] = []
 
+var is_alive: bool:
+	get:
+		return health > 0
+
 ## [b]Конструктор сущности[/b][br]
 ## Создает новую сущность с указанными параметрами[br]
 ## [br]
@@ -113,10 +117,10 @@ func clear_effects():
 
 ## [b]Обновить эффекты[/b][br]
 ## Уменьшает длительность всех эффектов и удаляет завершившиеся
-func tick_effects():
+func tick_effects(applyed_effects: Array[BaseEffect]):
 	var expired_effects: Array[BaseEffect] = []
 	
-	for effect in effects:
+	for effect in applyed_effects:
 		effect.tick()
 		if effect.is_ended:
 			expired_effects.append(effect)
@@ -128,13 +132,13 @@ func tick_effects():
 ## Активирует все эффекты и обновляет их состояние[br]
 ## [br]
 ## [b]Возвращает:[/b] Словарь с типами эффектов и их значениями
-func apply_effects() -> Dictionary:
-	var applyed_effects = {}
+func apply_effects(order: int):
+	var applyed_effects: Array[BaseEffect] = []
 	for effect in effects:
-		var value = effect.apply(self)
-		applyed_effects.merge({effect.effect_type: value})
-	tick_effects()
-	return applyed_effects
+		if effect.order == order:
+			effect.apply(self)
+			applyed_effects.append(effect)
+	tick_effects(applyed_effects)
 
 ## [b]Получить строку эффектов[/b][br]
 ## Формирует текстовое представление всех активных эффектов[br]
