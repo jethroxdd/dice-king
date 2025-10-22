@@ -4,3 +4,5 @@ extends Node
 signal target_selected()
 ## Сигнал добавления строчки в логи
 signal update_log(text: String)
+
+var artifact_manager: ArtifactManager = ArtifactManager.new()

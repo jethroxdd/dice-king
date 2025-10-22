@@ -6,7 +6,7 @@ signal selected
 func _ready() -> void:
 	update_stats()
 	update_intention()
-	Global.target_selected.connect(unselect)
+	GameManager.target_selected.connect(unselect)
 	$Button.pressed.connect(select)
 	
 func update_stats():
@@ -20,6 +20,6 @@ func unselect():
 	$SelectedPanel.visible = false
 
 func select():
-	Global.target_selected.emit()
+	GameManager.target_selected.emit()
 	selected.emit()
 	$SelectedPanel.visible = true

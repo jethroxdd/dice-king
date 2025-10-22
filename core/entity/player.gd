@@ -16,6 +16,15 @@ func start_round():
 	# Щит сбрасывается каждый раунд (можно изменить артефактом)
 	shield = 0
 
+func take_damage(source: Entity, damage: int) -> int:
+	var had_shield = shield > 0
+	var actual_damage = max(0, damage - shield)
+	shield = max(0, shield - damage)
+	health -= actual_damage
+	if had_shield and shield == 0:
+		GameManager.artifact_manager.on_player_shield_broken.emit(self, source)
+	return actual_damage
+
 func can_roll() -> bool:
 	return energy > 0
 

@@ -16,12 +16,12 @@ var player_stats_label: Label
 var apply_button: Button
 
 func _ready() -> void:
-	log_label = $log
-	energy_label = $energy
+	log_label = $Log
+	energy_label = $Energy
 	player_stats_label = $PlayerStats
-	apply_button = $ApplyBtn
+	apply_button = $ApplyButton
 	# Подключение сигнала для обновления логов
-	Global.update_log.connect(update_log)
+	GameManager.update_log.connect(update_log)
 
 ## Добавляет новую запись в лог боя
 func update_log(new_line: String):
@@ -44,7 +44,7 @@ func update_stats(player: Player):
 func create_enemies(enemies: Array[Enemy], select_target_btn: Callable):
 	var i = 0
 	for enemy in enemies:
-		var enemy_ui = preload("res://scenes/enemy_ui.tscn").instantiate()
+		var enemy_ui = preload("res://scenes/battle/enemy_ui.tscn").instantiate()
 		enemy_ui.enemy = enemy
 		if i == 0: enemy_ui.select()
 		enemy_ui.selected.connect(select_target_btn.bind(i))
@@ -58,13 +58,16 @@ func create_buttons(player: Player, die_roll: Callable):
 	
 	for i in range(button_count):
 		# Создаем экземпляр кнопки из префаба
-		var button = preload("res://scenes/test_die_ui.tscn").instantiate()
+		var button = preload("res://scenes/battle/die_ui.tscn").instantiate()
 		button.name = "DieBtn%d" % i
 		button.text = "Кость %d" % i
 		# Подключаем сигнал нажатия с передачей индекса кости
 		button.pressed.connect(die_roll.bind(i))
 		$DiceContainer.add_child(button)  # Добавляем в контейнер
 	update_dice_tooltip(player)
+
+func connect_apply_button(callback: Callable):
+	$ApplyButton.pressed.connect(callback)
 
 ## Обновляет описание кубиков
 func update_dice_tooltip(player: Player):

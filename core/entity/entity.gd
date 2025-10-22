@@ -47,7 +47,7 @@ func _init(entity_name: String, initial_health: int):
 ## [param damage] - Величина входящего урона[br]
 ## [br]
 ## [b]Возвращает:[/b] Фактический полученный урон после учета щита
-func take_damage(damage: int) -> int:
+func take_damage(source: Entity, damage: int) -> int:
 	var actual_damage = max(0, damage - shield)
 	shield = max(0, shield - damage)
 	health -= actual_damage

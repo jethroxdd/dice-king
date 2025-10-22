@@ -33,7 +33,7 @@ func calculate(_face: int):
 ## [param _face] - значение на кубике[br]
 ## [br]
 ## [i]Переопределите этот метод в дочерних классах[/i][br]
-func apply(_sorce: Entity, _target: Entity, _face: int):
+func apply(_source: Entity, _target: Entity, _face: int):
 	push_error("calculate() is not implemented")
 
 ## Генерирует описание с учетом значения кубика[br]

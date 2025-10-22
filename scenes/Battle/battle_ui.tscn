@@ -22,7 +22,7 @@ text = "Здровье: $d
 Щит: $d
 Эффекты: %s"
 
-[node name="ApplyBtn" type="Button" parent="."]
+[node name="ApplyButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 504.0
 offset_top = 288.0
@@ -45,7 +45,7 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="energy" type="Label" parent="."]
+[node name="Energy" type="Label" parent="."]
 layout_mode = 0
 offset_left = 528.0
 offset_top = 320.0
@@ -54,7 +54,7 @@ offset_bottom = 343.0
 text = "Energy: %d"
 horizontal_alignment = 1
 
-[node name="log" type="RichTextLabel" parent="."]
+[node name="Log" type="RichTextLabel" parent="."]
 layout_mode = 0
 offset_left = 32.0
 offset_top = 192.0

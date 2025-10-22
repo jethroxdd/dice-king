@@ -19,7 +19,7 @@ var battle: BattleManager = BattleManager.new(player, enemies)
 
 # Объект для работы с интерфейсом
 @onready
-var UI: BattleUI = $test_ui
+var UI: BattleUI = $BattleUI
 
 func _ready():
 	# Создаем игровые кости с разными характеристиками:
@@ -36,20 +36,20 @@ func _ready():
 	UI.create_buttons(player, die_roll)
 	UI.create_enemies(enemies, select_target_btn)
 	# Подключаем сигнал кнопки применения хода
-	$test_ui/ApplyBtn.pressed.connect(apply)
+	UI.connect_apply_button(apply)
 	
 	# Инициализируем начальное состояние интерфейса
 	UI.update_stats(player)
 	UI.update_energy(player)
-	Global.update_log.emit("=== НАЧАЛО БОЯ ===")
+	GameManager.update_log.emit("=== НАЧАЛО БОЯ ===")
 	next_round()  # Запускаем первый раунд
 
 func _process(_delta):
 	var winner = battle.get_winner()
 	if not winner == "":
-		$WinnerLbl.text = "%s wins" % winner
-		$WinnerLbl.visible = true
-		$test_ui.visible = false
+		$WinnerLabel.text = "%s wins" % winner
+		$WinnerLabel.visible = true
+		UI.visible = false
 
 # Обрабатывает бросок конкретной кости игроком
 func die_roll(i: int):
@@ -84,7 +84,7 @@ func next_round():
 	# Начало хода игрока
 	battle.start_player_round()
 	
-	Global.update_log.emit("=== РАУНД %d ===" % battle.current_round)
+	GameManager.update_log.emit("=== РАУНД %d ===" % battle.current_round)
 	# Обновляем все элементы интерфейса
 	UI.update_energy(player)
 	UI.update_stats(player)

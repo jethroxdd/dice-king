@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 
 DragManager="*res://core/managers/DragManager.gd"
 Methods="*res://core/Methods.gd"
-Global="*res://core/managers/Global.gd"
+GameManager="*res://core/managers/GameManager.gd"
 
 [rendering]
 

@@ -9,9 +9,9 @@ func _init():
 func calculate(face: int):
 	return face + 1
 
-func apply(sorce: Entity, _target: Entity, face: int):
-	sorce.take_shield(calculate(face))
-	Global.update_log.emit("%s %s" % [sorce.name, _get_log_text(face)])
+func apply(source: Entity, _target: Entity, face: int):
+	source.take_shield(calculate(face))
+	GameManager.update_log.emit("%s %s" % [source.name, _get_log_text(face)])
 
 func get_description(face: int):
 	return "Щит: %d" % calculate(face)

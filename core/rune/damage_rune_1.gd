@@ -9,9 +9,9 @@ func _init():
 func calculate(face: int):
 	return face
 
-func apply(_sorce: Entity, target: Entity, face: int):
-	target.take_damage(calculate(face))
-	Global.update_log.emit("%s %s" % [target.name, _get_log_text(face)])
+func apply(source: Entity, target: Entity, face: int):
+	target.take_damage(source, calculate(face))
+	GameManager.update_log.emit("%s %s" % [target.name, _get_log_text(face)])
 
 func get_description(face: int):
 	return "Урон: %d" % calculate(face)

@@ -8,8 +8,8 @@ var intention: Intention = Intention.get_default()
 func _init(enemy_name: String, initial_health: int):
 	super(enemy_name, initial_health)
 
-func take_damage(damage: int) -> int:
-	super.take_damage(damage)
+func take_damage(source: Entity, damage: int) -> int:
+	super.take_damage(source, damage)
 	if not is_alive:
 		intention =  Intention.get_died()
 	return damage

@@ -67,7 +67,7 @@ func end_player_round():
 func start_enemies_round():
 	process_enemy_turn()
 	for enemy in enemies:
-		Global.update_log.emit("%s: %s" % [enemy.name, enemy.intention.log_text])
+		GameManager.update_log.emit("%s: %s" % [enemy.name, enemy.intention.log_text])
 	for enemy in enemies:
 		enemy.apply_effects(0)
 
@@ -114,7 +114,7 @@ func process_enemy_turn():
 	
 		match intention.type:
 			"damage":
-				player.take_damage(intention.value)
+				player.take_damage(enemy, intention.value)
 			"shield":
 				enemy.take_shield(intention.value)
 			"heal":

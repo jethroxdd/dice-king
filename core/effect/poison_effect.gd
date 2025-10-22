@@ -12,7 +12,7 @@ func _init(new_effect_value: int = 0):
 
 func apply(target: Entity) -> int:
 	target.take_true_damage(value)
-	Global.update_log.emit("%s %s" % [target.name, _get_log_text()])
+	GameManager.update_log.emit("%s %s" % [target.name, _get_log_text()])
 	return value
 
 func stack(new_effect: BaseEffect):
