@@ -6,12 +6,14 @@ signal selected
 func _ready() -> void:
 	update_stats()
 	update_intention()
-	GameManager.target_selected.connect(unselect)
+	EventBus.target_selected.connect(unselect)
 	$Button.pressed.connect(select)
+	$NameLabel.text = enemy.name
 	
 func update_stats():
-	var enemy_str = "Здровье: %d\nЩит: %d\nЭффекты:\n%s" % [enemy.health, enemy.shield, enemy.get_effects_string()]
-	$StatsRLabel.text = enemy_str
+	var stats = "Здровье: %d\nЩит: %d\nЭффекты:" % [enemy.health, enemy.shield]
+	$StatsRLabel.text = stats
+	$EffectsLabel.text = enemy.get_effects_string()
 
 func update_intention():
 	$IntentionRLabel.text = enemy.intention.text
@@ -20,6 +22,6 @@ func unselect():
 	$SelectedPanel.visible = false
 
 func select():
-	GameManager.target_selected.emit()
+	EventBus.target_selected.emit()
 	selected.emit()
 	$SelectedPanel.visible = true

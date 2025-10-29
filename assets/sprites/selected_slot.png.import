@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1nnje40fmxij"
-path="res://.godot/imported/shield_icon.png-7d3550d57d49aa8d666741817a345458.ctex"
+uid="uid://bwoqi1yu4xgdk"
+path="res://.godot/imported/selected_slot.png-a8942262df96f435df36734ff8c3a9af.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/shield_icon.png"
-dest_files=["res://.godot/imported/shield_icon.png-7d3550d57d49aa8d666741817a345458.ctex"]
+source_file="res://assets/sprites/selected_slot.png"
+dest_files=["res://.godot/imported/selected_slot.png-a8942262df96f435df36734ff8c3a9af.ctex"]
 
 [params]
 

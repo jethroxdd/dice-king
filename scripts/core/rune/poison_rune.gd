@@ -1,17 +1,17 @@
 class_name PoisonRune
 extends BaseRune
 func _init():
-	self.name = "Яд"
-	self.rune_type = "shield"
-	self.description = "Накладывает яд: 2"
-	self.tags = ["shield", "defence", "shop", "chest", "common"]
+	name = "Яд"
+	rune_type = "poison"
+	description = "Накладывает яд: 2"
+	tags = ["poison", "offense", "shop", "chest", "epic"]
 
 func calculate(_face: int):
 	return 2
 
 func apply(_source: Entity, target: Entity, face: int):
 		target.add_effect(PoisonEffect.new(calculate(face)))
-		GameManager.update_log.emit("%s %s" % [target.name, _get_log_text(face)])
+		EventBus.update_log.emit("%s %s" % [target.name, _get_log_text(face)])
 
 func get_description(face: int):
 	return "Яд: %d" % calculate(face)

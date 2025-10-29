@@ -17,9 +17,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-DragManager="*res://core/managers/DragManager.gd"
-Methods="*res://core/Methods.gd"
-GameManager="*res://core/managers/GameManager.gd"
+GameManager="*res://scripts/managers/GameManager.gd"
+Methods="*res://scripts/system/Methods.gd"
+GameState="*res://scripts/managers/GameState.gd"
+EventBus="*res://scripts/managers/EventBus.gd"
 
 [rendering]
 

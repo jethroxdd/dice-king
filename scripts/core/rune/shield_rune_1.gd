@@ -11,7 +11,7 @@ func calculate(face: int):
 
 func apply(source: Entity, _target: Entity, face: int):
 	source.take_shield(calculate(face))
-	GameManager.update_log.emit("%s %s" % [source.name, _get_log_text(face)])
+	EventBus.update_log.emit("%s %s" % [source.name, _get_log_text(face)])
 
 func get_description(face: int):
 	return "Щит: %d" % calculate(face)

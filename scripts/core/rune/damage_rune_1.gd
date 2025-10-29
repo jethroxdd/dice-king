@@ -11,7 +11,7 @@ func calculate(face: int):
 
 func apply(source: Entity, target: Entity, face: int):
 	target.take_damage(source, calculate(face))
-	GameManager.update_log.emit("%s %s" % [target.name, _get_log_text(face)])
+	EventBus.update_log.emit("%s %s" % [target.name, _get_log_text(face)])
 
 func get_description(face: int):
 	return "Урон: %d" % calculate(face)

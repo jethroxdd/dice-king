@@ -8,16 +8,16 @@ func _init(new_effect_value: int = 0):
 	tag = 'burn'
 	order = 1
 	value = new_effect_value
-	duration = 3
+	duration = 2
 
 func apply(target: Entity) -> int:
-	target.take_damage(value)
-	GameManager.update_log.emit("%s %s" % [target.name, _get_log_text()])
+	target.take_damage(null, value)
+	EventBus.update_log.emit("%s %s" % [target.name, _get_log_text()])
 	return value
 
 func stack(new_effect: BaseEffect):
 	value += new_effect.value
-	duration = 3
+	duration = 2
 
 func tick():
 	duration = max(0, duration-1)

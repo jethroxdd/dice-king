@@ -1,6 +1,8 @@
 class_name BattleUI
 extends Control
 
+var player: Player = GameManager.player
+
 var dice_nodes: Array:
 	get:
 		return $DiceContainer.get_children()
@@ -21,7 +23,10 @@ func _ready() -> void:
 	player_stats_label = $PlayerStats
 	apply_button = $ApplyButton
 	# Подключение сигнала для обновления логов
-	GameManager.update_log.connect(update_log)
+	EventBus.update_log.connect(update_log)
+	EventBus.update_battle_ui.connect(update_energy)
+	EventBus.update_battle_ui.connect(update_stats)
+	EventBus.update_battle_ui.connect(update_dice_tooltip)
 
 ## Добавляет новую запись в лог боя
 func update_log(new_line: String):
@@ -29,11 +34,11 @@ func update_log(new_line: String):
 	log_label.text = log_text
 
 ## Обновляет отображение энергии игрока
-func update_energy(player: Player):
+func update_energy():
 	energy_label.text = "Энергия %d" % player.energy
 
 ## Обновляет отображение статистики персонажей
-func update_stats(player: Player):
+func update_stats():
 	var player_str = "Здровье: %d\nЩит: %d\nЭффекты: %s" % [player.health, player.shield, player.get_effects_string()]
 	player_stats_label.text = player_str
 	for enemy_ui in enemies_nodes:
@@ -52,7 +57,7 @@ func create_enemies(enemies: Array[Enemy], select_target_btn: Callable):
 		i += 1
 
 ## Создает кнопки для каждой кости в инвентаре игрока
-func create_buttons(player: Player, die_roll: Callable):
+func create_buttons(die_roll: Callable):
 	# Получаем всплывающие подсказки для каждой кости
 	var button_count = len(player.dice)
 	
@@ -64,13 +69,13 @@ func create_buttons(player: Player, die_roll: Callable):
 		# Подключаем сигнал нажатия с передачей индекса кости
 		button.pressed.connect(die_roll.bind(i))
 		$DiceContainer.add_child(button)  # Добавляем в контейнер
-	update_dice_tooltip(player)
+	update_dice_tooltip()
 
 func connect_apply_button(callback: Callable):
 	$ApplyButton.pressed.connect(callback)
 
 ## Обновляет описание кубиков
-func update_dice_tooltip(player: Player):
+func update_dice_tooltip():
 	var i = 0
 	for die in player.dice:
 		dice_nodes[i].tooltip_text = die.tooltip_text

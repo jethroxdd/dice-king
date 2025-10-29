@@ -5,7 +5,7 @@ extends RefCounted
 
 # Ссылки на участников боя
 ## Ссылка на игрока
-var player: Player
+var player: Player = GameManager.player
 ## Массив врагов
 var enemies: Array[Enemy]
 ## Текуйщий выбранны враг[br]
@@ -20,8 +20,7 @@ var current_round: int = 0
 ## [b]Параметры:[/b][br]
 ## [param player_ref] - Ссылка на объект [Player][br]
 ## [param enemies_ref] - Массив объектов [Enemy]
-func _init(player_ref: Player, enemies_ref: Array[Enemy]):
-	player = player_ref
+func _init( enemies_ref: Array[Enemy]):
 	enemies = enemies_ref
 	set_target(0)
 
@@ -67,7 +66,7 @@ func end_player_round():
 func start_enemies_round():
 	process_enemy_turn()
 	for enemy in enemies:
-		GameManager.update_log.emit("%s: %s" % [enemy.name, enemy.intention.log_text])
+		EventBus.update_log.emit("%s: %s" % [enemy.name, enemy.intention.log_text])
 	for enemy in enemies:
 		enemy.apply_effects(0)
 

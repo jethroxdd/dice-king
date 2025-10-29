@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://tr1wf8gwvgtg"]
 
-[ext_resource type="Script" uid="uid://chpbaffub2gja" path="res://scripts/rooms/battle_encounter.gd" id="1_hp7no"]
+[ext_resource type="Script" path="res://core/node.gd" id="1_lride"]
 [ext_resource type="PackedScene" uid="uid://chur67s2nhpxn" path="res://scenes/Battle/battle_ui.tscn" id="2_2ymqe"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_lride"]
 font_size = 40
 
 [node name="BattleEncounter" type="Node2D"]
-script = ExtResource("1_hp7no")
+script = ExtResource("1_lride")
 
 [node name="BattleUI" parent="." instance=ExtResource("2_2ymqe")]
 anchors_preset = 0

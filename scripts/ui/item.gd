@@ -9,8 +9,8 @@ signal drag_start
 signal drag_end
 
 func _ready():
-	drag_start.connect(DragManager._on_drag_start.bind(self))
-	drag_end.connect(DragManager._on_drag_end.bind(self))
+	drag_start.connect(GameManager.drag_manager._on_drag_start.bind(self))
+	drag_end.connect(GameManager.drag_manager._on_drag_end.bind(self))
 
 func _process(_delta):
 	if is_dragged:

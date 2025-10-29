@@ -4,10 +4,10 @@ class_name InvSlot
 var current_item = null
 
 func _ready():
-	DragManager.add_slot(self)
+	GameManager.drag_manager.add_slot(self)
 
 func _exit_tree():
-	DragManager.remove_slot(self)
+	GameManager.drag_manager.remove_slot(self)
 
 func add_item(item):
 	$ItemContainer.add_child(item)

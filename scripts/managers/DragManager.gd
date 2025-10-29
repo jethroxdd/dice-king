@@ -1,4 +1,5 @@
-extends Node
+class_name DragManager
+extends RefCounted
 
 var current_item = null
 var current_slot = null
