@@ -3,6 +3,10 @@ extends Control
 
 var player: Player = GameManager.player
 
+var is_focus_select: bool:
+	get:
+		return focus_button.button_pressed
+
 var dice_nodes: Array:
 	get:
 		return $DiceContainer.get_children()
@@ -16,17 +20,21 @@ var log_text: String = ""
 var energy_label: Label
 var player_stats_label: Label
 var apply_button: Button
+var focus_button: Button
 
 func _ready() -> void:
 	log_label = $Log
 	energy_label = $Energy
 	player_stats_label = $PlayerStats
 	apply_button = $ApplyButton
-	# Подключение сигнала для обновления логов
+	focus_button = $FocusButton
+	
+	# Подключение сигналов
 	EventBus.update_log.connect(update_log)
 	EventBus.update_battle_ui.connect(update_energy)
 	EventBus.update_battle_ui.connect(update_stats)
 	EventBus.update_battle_ui.connect(update_dice_tooltip)
+	EventBus.update_battle_ui.connect(update_focus)
 
 ## Добавляет новую запись в лог боя
 func update_log(new_line: String):
@@ -35,7 +43,12 @@ func update_log(new_line: String):
 
 ## Обновляет отображение энергии игрока
 func update_energy():
-	energy_label.text = "Энергия %d" % player.energy
+	energy_label.text = "Энергия: %d" % player.energy
+
+## Обновляет отображение фокуса игрока
+func update_focus():
+	focus_button.text = "Фокус: %d" % player.focus
+	focus_button.button_pressed = false
 
 ## Обновляет отображение статистики персонажей
 func update_stats():
@@ -49,7 +62,7 @@ func update_stats():
 func create_enemies(enemies: Array[Enemy], select_target_btn: Callable):
 	var i = 0
 	for enemy in enemies:
-		var enemy_ui = preload("res://scenes/battle/enemy_ui.tscn").instantiate()
+		var enemy_ui = preload("res://scenes/Battle room/enemy_ui.tscn").instantiate()
 		enemy_ui.enemy = enemy
 		if i == 0: enemy_ui.select()
 		enemy_ui.selected.connect(select_target_btn.bind(i))
@@ -57,13 +70,13 @@ func create_enemies(enemies: Array[Enemy], select_target_btn: Callable):
 		i += 1
 
 ## Создает кнопки для каждой кости в инвентаре игрока
-func create_buttons(die_roll: Callable):
+func create_dice(die_roll: Callable):
 	# Получаем всплывающие подсказки для каждой кости
 	var button_count = len(player.dice)
 	
 	for i in range(button_count):
 		# Создаем экземпляр кнопки из префаба
-		var button = preload("res://scenes/battle/die_ui.tscn").instantiate()
+		var button = preload("res://scenes/Battle room/die_ui.tscn").instantiate()
 		button.name = "DieBtn%d" % i
 		button.text = "Кость %d" % i
 		# Подключаем сигнал нажатия с передачей индекса кости
@@ -73,6 +86,9 @@ func create_buttons(die_roll: Callable):
 
 func connect_apply_button(callback: Callable):
 	$ApplyButton.pressed.connect(callback)
+
+func connect_focus_button(callback: Callable):
+	$FocusButton.pressed.connect(callback)
 
 ## Обновляет описание кубиков
 func update_dice_tooltip():

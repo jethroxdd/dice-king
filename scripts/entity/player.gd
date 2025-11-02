@@ -3,13 +3,17 @@ extends Entity
 
 var energy: int
 var max_energy: int
+var focus: int
+var max_focus: int
 var dice: Array[Die] = []
 var artifacts: Array = []
 
 func _init():
 	super("Player", 100)
-	energy = 3
 	max_energy = 3
+	energy = max_energy
+	max_focus = 3
+	focus = max_focus
 
 func start_round():
 	energy = max_energy

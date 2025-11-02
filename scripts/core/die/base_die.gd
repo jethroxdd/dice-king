@@ -32,7 +32,7 @@ func _init(num_sides: int, faces_list: Array = []):
 	# Инициализируем пустыми эффектами
 	for i in range(sides):
 		faces[i] = faces_list[i] if i < len(faces_list) and not faces_list.is_empty() else EmptyRune.new()
-	_reset_remaining_faces()
+	reset_remaining_faces()
 
 ## Бросить кость[br]
 ## [br]
@@ -45,7 +45,7 @@ func roll() -> RollResult:
 	remain_faces.erase(result)
 	# Если доступные стороны кончились - восстановить его
 	if remain_faces.is_empty():
-		_reset_remaining_faces()
+		reset_remaining_faces()
 	return RollResult.new(result+1, rune)
 
 ## Получить количество граней кости[br]
@@ -55,7 +55,7 @@ func get_sides() -> int:
 	return _sides
 
 ## Сделать доступными все стороны
-func _reset_remaining_faces():
+func reset_remaining_faces():
 	for i in range(sides):
 		remain_faces.append(i)
 

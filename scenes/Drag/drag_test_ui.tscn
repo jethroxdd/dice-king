@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ljebgi0pxkpy"]
 
-[ext_resource type="Script" uid="uid://6oob53npap6b" path="res://core/ui/ui.gd" id="1_x4jx1"]
+[ext_resource type="Script" uid="uid://6oob53npap6b" path="res://scripts/ui/Drag/ui.gd" id="1_x4jx1"]
 [ext_resource type="PackedScene" uid="uid://dfpogmfgqdhj3" path="res://scenes/Drag/slot.tscn" id="2_yev5y"]
 
 [node name="UI" type="Control"]
