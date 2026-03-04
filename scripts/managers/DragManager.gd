@@ -1,9 +1,10 @@
 class_name DragManager
 extends RefCounted
 
-var current_item = null
-var current_slot = null
-var slots = []
+var current_item: InvItem = null
+var swap_item: InvItem = null
+var current_slot: InvSlot = null
+var slots: Array[InvSlot] = []
 
 func add_slot(slot):
 	slots.append(slot)
@@ -16,8 +17,14 @@ func _on_drag_start(item):
 	current_slot = item.current_slot
 
 func _on_drag_end(item):
-	for slot in slots:
+	for slot: InvSlot in slots:
 		if slot.can_drop_item(current_item):
+			if slot.current_item:
+				swap_item = slot.current_item.duplicate()
 			slot.add_item(item.duplicate())
-			current_slot.remove_item()
+			current_slot.add_item(swap_item)
 			break
+	
+	current_item = null
+	current_slot = null
+	swap_item = null

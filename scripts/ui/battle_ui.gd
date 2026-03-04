@@ -3,7 +3,7 @@ extends Control
 
 var player: Player = GameManager.player
 
-var dice_nodes: Array:
+var dice_nodes: Array[Node]:
 	get:
 		return $DiceContainer.get_children()
 
@@ -78,5 +78,5 @@ func connect_apply_button(callback: Callable):
 func update_dice_tooltip():
 	var i = 0
 	for die in player.dice:
-		dice_nodes[i].tooltip_text = die.tooltip_text
+		dice_nodes[i].set_tooltip_data(die.get_tooltip_data())
 		i += 1

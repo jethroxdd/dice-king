@@ -5,6 +5,7 @@ func _init():
 	self.rune_type = "empty"
 	self.description = "Пустой слот руны"
 	self.tags = ["empty"]
+	self.icon_path = "res://assets/sprites/icons/empty.png"
 
 func calculate(_face: int):
 	return 0

@@ -1,7 +1,7 @@
 extends Node
 
 func is_mouse_over_control(control: Control) -> bool:
-	# Check if control is valid and visible
+		# Check if control is valid and visible
 	if not control or not control.visible or not control.is_inside_tree():
 		return false
 	
@@ -13,3 +13,9 @@ func is_mouse_over_control(control: Control) -> bool:
 	
 	# Check if local position is within control's rectangle
 	return Rect2(Vector2.ZERO, control.size).has_point(mouse_local)
+
+class Icons:
+	const poison = "res://assets/sprites/icons/poison.png"
+	const burn = "res://assets/sprites/icons/burn.png"
+	const physical_damage = "res://assets/sprites/icons/physical_damage.png"
+	const shield = "res://assets/sprites/icons/shield.png"

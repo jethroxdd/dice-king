@@ -5,9 +5,10 @@ func _init():
 	self.rune_type = "burn"
 	self.description = "Накладывает грение: 1*face"
 	self.tags = ["shield", "defence", "shop", "chest", "common"]
+	self.icon_path = "res://assets/sprites/icons/burn.png"
 
 func calculate(face: int):
-	return face
+	return face+1
 
 func apply(_source: Entity, target: Entity, face: int):
 		target.add_effect(BurnEffect.new(calculate(face)))

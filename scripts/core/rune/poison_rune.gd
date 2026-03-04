@@ -1,10 +1,11 @@
 class_name PoisonRune
 extends BaseRune
 func _init():
-	name = "Яд"
-	rune_type = "poison"
-	description = "Накладывает яд: 2"
-	tags = ["poison", "offense", "shop", "chest", "epic"]
+	self.name = "Яд"
+	self.rune_type = "poison"
+	self.description = "Накладывает яд: 2"
+	self.tags = ["poison", "offense", "shop", "chest", "epic"]
+	self.icon_path = "res://assets/sprites/icons/poison.png"
 
 func calculate(_face: int):
 	return 2

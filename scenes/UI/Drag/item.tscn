@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://dfxr6u4ijo3ga"]
 
-[ext_resource type="Script" uid="uid://dv30xqajcfiri" path="res://core/ui/item.gd" id="1_6muww"]
-[ext_resource type="Texture2D" uid="uid://bwoqi1yu4xgdk" path="res://sprites/selected_slot.png" id="2_6muww"]
-[ext_resource type="Texture2D" uid="uid://d1nnje40fmxij" path="res://sprites/shield_icon.png" id="2_s8enn"]
+[ext_resource type="Script" uid="uid://dv30xqajcfiri" path="res://scripts/ui/item.gd" id="1_6muww"]
+[ext_resource type="Texture2D" uid="uid://bwoqi1yu4xgdk" path="res://assets/sprites/selected_slot.png" id="2_6muww"]
+[ext_resource type="Texture2D" uid="uid://luoka7bwnshi" path="res://assets/sprites/icons/physical_damage.png" id="3_1tej5"]
 
 [node name="Item" type="Control"]
 custom_minimum_size = Vector2(64, 64)
@@ -34,12 +34,12 @@ texture = ExtResource("2_6muww")
 [node name="Texture" type="TextureRect" parent="Icon"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("2_s8enn")
+texture = ExtResource("3_1tej5")
 
 [node name="Button" type="Button" parent="."]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
+layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
 grow_horizontal = 2

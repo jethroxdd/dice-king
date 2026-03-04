@@ -46,7 +46,7 @@ func roll() -> RollResult:
 	# Если доступные стороны кончились - восстановить его
 	if remain_faces.is_empty():
 		_reset_remaining_faces()
-	return RollResult.new(result+1, rune)
+	return RollResult.new(result, rune)
 
 ## Получить количество граней кости[br]
 ## [br]
@@ -60,12 +60,11 @@ func _reset_remaining_faces():
 		remain_faces.append(i)
 
 ## Вычисляемое свойство[br]
-## Возвращает текстовое описание всех граней кости в формате, пригодном для подсказки в UI.[br]
-## Каждая строка содержит описание руны на соответствующей грани.
-var tooltip_text: String:
-	get:
-		var text = ""
-		for i in range(sides):
-			var temp = "%d: %s\n" % [i, faces[i].get_description(i+1)]
-			text += temp if i in remain_faces else "-\n"
-		return text
+## Возвращает: кол-во сторон и [class TooltipData][br].
+func get_tooltip_data() -> Array:
+	var tooltip_data: TooltipData = TooltipData.new()
+	var i = 0
+	for face in faces:
+		tooltip_data.add_face(i, i in remain_faces, face.calculate(i), face.icon_path)
+		i += 1
+	return [sides, tooltip_data]

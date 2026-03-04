@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://c7jcang2udoxp"]
+
+[ext_resource type="Script" uid="uid://csomu5uiurehl" path="res://scripts/ui/tooltip/tooltip.gd" id="1_11pm8"]
+
+[node name="Tooltip" type="Control"]
+z_index = 1000
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_11pm8")

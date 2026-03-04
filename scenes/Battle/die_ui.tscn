@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://d1lnran6f7egh"]
+[gd_scene load_steps=3 format=3 uid="uid://d1lnran6f7egh"]
+
+[ext_resource type="PackedScene" uid="uid://c7jcang2udoxp" path="res://scenes/UI/ToolTip/tooltip.tscn" id="1_g74xq"]
+[ext_resource type="Script" uid="uid://bx6dmh1wyvhl0" path="res://scripts/ui/die_ui.gd" id="1_yjt74"]
 
 [node name="test_die_ui" type="Button"]
 custom_minimum_size = Vector2(64, 64)
@@ -6,3 +9,9 @@ offset_right = 8.0
 offset_bottom = 8.0
 action_mode = 0
 text = "-"
+script = ExtResource("1_yjt74")
+
+[node name="Tooltip" parent="." instance=ExtResource("1_g74xq")]
+visible = false
+layout_mode = 0
+scale = Vector2(0.5, 0.5)

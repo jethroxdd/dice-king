@@ -1,10 +1,11 @@
-class_name ShieldRune1
+class_name ShieldRune
 extends BaseRune
 func _init():
-	self.name = "Щит  I"
+	self.name = "Щит"
 	self.rune_type = "shield"
 	self.description = "Дает щит: 1+face"
 	self.tags = ["shield", "defence", "shop", "chest", "common"]
+	self.icon_path = "res://assets/sprites/icons/shield.png"
 
 func calculate(face: int):
 	return face + 1

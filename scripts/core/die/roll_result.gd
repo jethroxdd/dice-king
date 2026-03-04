@@ -9,7 +9,7 @@ func _init(roll_face: int, face_rune: BaseRune) -> void:
 	rune = face_rune
 
 static func default() -> RollResult:
-	return RollResult.new(0, EmptyRune.new())
+	return RollResult.new(-1, EmptyRune.new())
 
 func is_default():
-	return face == 0
+	return face == -1
