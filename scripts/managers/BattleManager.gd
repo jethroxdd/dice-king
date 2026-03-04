@@ -22,6 +22,7 @@ var current_round: int = 0
 ## [param enemies_ref] - Массив объектов [Enemy]
 func _init( enemies_ref: Array[Enemy]):
 	enemies = enemies_ref
+	player.focus = player.max_focus
 	set_target(0)
 
 ## Установка текущей цели для атак игрока[br]
@@ -77,6 +78,15 @@ func start_enemies_round():
 func end_enemies_round():
 	for enemy in enemies:
 		enemy.apply_effects(1)
+
+func reset_die(die_inedx: int):
+	if player.focus > 0:
+		player.dice[die_inedx].reset_remaining_faces()
+		player.focus -= 1
+		EventBus.update_log.emit("Использован фокус")
+		EventBus.update_battle_ui.emit()
+	else:
+		EventBus.update_log.emit("Фокусы кончились")
 
 ## Обработка броска игрока[br]
 ## [br]
@@ -139,10 +149,8 @@ func is_battle_over() -> bool:
 ## [code]"player"[/code] - если победил игрок[br]
 ## [code]"enemy"[/code] - если победили противники[br]
 ## [code]""[/code] - если бой еще не окончен
-func get_winner() -> String:
+func check_battle_end():
 	if not is_battle_over():
-		return ""
-	if not player.is_alive:
-		return "enemy"
-	else:
-		return "player"
+		return 
+	var winner = "player" if player.is_alive else "enemy"
+	EventBus.battle_room_over.emit(winner)

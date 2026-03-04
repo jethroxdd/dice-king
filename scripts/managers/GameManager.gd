@@ -2,6 +2,10 @@ extends Node
 
 var player: Player = Player.new()
 
+var map_generator: MapGraph = MapGraph.new()
+
+var map: Dictionary = map_generator.generate_map()
+
 var artifact_manager: ArtifactManager = ArtifactManager.new()
 var drag_manager: DragManager = DragManager.new()
 

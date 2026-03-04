@@ -21,35 +21,42 @@ var battle: BattleManager = BattleManager.new(enemies)
 var UI: BattleUI = $BattleUI
 
 func _ready():
-	# Создаем UI элементы для управления костями
-	UI.create_buttons(die_roll)
+	# Создаем UI элементы
+	UI.create_dice(die_select)
 	UI.create_enemies(enemies, select_target_btn)
-	# Подключаем сигнал кнопки применения хода
+	# Подключаем сигналы
 	UI.connect_apply_button(apply)
-	
+	EventBus.battle_room_over.connect(show_winner)
 	# Инициализируем начальное состояние интерфейса
 	EventBus.update_battle_ui.emit()
 	EventBus.update_log.emit("=== НАЧАЛО БОЯ ===")
 	next_round()  # Запускаем первый раунд
 
 func _process(_delta):
-	var winner = battle.get_winner()
-	if not winner == "":
-		$WinnerLabel.text = "%s wins" % winner
-		$WinnerLabel.visible = true
-		UI.visible = false
+	battle.check_battle_end()
+		
+func show_winner(winner: String):
+	$WinnerLabel.text = "%s wins" % winner
+	$WinnerLabel.visible = true
+	UI.visible = false
 
 # Обрабатывает бросок конкретной кости игроком
-func die_roll(i: int):
-	# Просим BattleManager обработать бросок
-	battle.process_player_roll(i)
-	# Обновляем показатели после броска
-	EventBus.update_battle_ui.emit()
+func die_select(i: int):
+	if UI.is_focus_select:
+		battle.reset_die(i)
+	else:
+		# Просим BattleManager обработать бросок
+		battle.process_player_roll(i)
+		# Обновляем показатели после броска
+		EventBus.update_battle_ui.emit()
 
 # Установка текущей цели игрока
 # Устанавливается по сигналу кнопки
 func select_target_btn(idx):
 	battle.set_target(idx)
+
+func focus():
+	pass
 
 # Обрабатывает завершение хода игрока
 # Обрабатывается по сигналу кнопки

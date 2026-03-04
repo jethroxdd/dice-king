@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://dfpogmfgqdhj3"]
 
-[ext_resource type="Texture2D" uid="uid://b037kj56uxkwl" path="res://sprites/slot_background.png" id="1_4v6ba"]
-[ext_resource type="Script" uid="uid://c7yedyy44iyyv" path="res://core/ui/slot.gd" id="1_ic0fu"]
+[ext_resource type="Texture2D" uid="uid://b037kj56uxkwl" path="res://assets/sprites/slot_background.png" id="1_4v6ba"]
+[ext_resource type="Script" uid="uid://c7yedyy44iyyv" path="res://scripts/ui/Drag/slot.gd" id="1_ic0fu"]
+
 
 [node name="Slot" type="Control"]
 custom_minimum_size = Vector2(64, 64)

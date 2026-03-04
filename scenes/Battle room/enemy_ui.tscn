@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://1ievs7t1qkpw"]
 
-[ext_resource type="Script" uid="uid://bacts77vccdde" path="res://scripts/ui/enemy_ui.gd" id="1_eyis1"]
+[ext_resource type="Script" uid="uid://bacts77vccdde" path="res://scripts/ui/Battle room/enemy_ui.gd" id="1_eyis1"]
+
 
 [node name="EnemyUI" type="Control"]
 custom_minimum_size = Vector2(128, 192)

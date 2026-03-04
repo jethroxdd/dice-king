@@ -8,7 +8,9 @@ signal round_start()
 signal round_end()
 
 signal die_rolled()
+signal focus_used()
 
 signal update_battle_ui()
 
-signal enter_battle_encounter()
+signal battle_room_entered()
+signal battle_room_over(winner: String)
