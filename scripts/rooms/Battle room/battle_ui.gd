@@ -11,6 +11,10 @@ var enemies_nodes: Array:
 	get:
 		return $EnemiesContainer.get_children()
 
+var focus_selected: bool:
+	get:
+		return $FocusButton.button_pressed
+
 var log_label: RichTextLabel
 var log_text: String = ""
 var energy_label: Label
@@ -23,14 +27,14 @@ func _ready() -> void:
 	energy_label = $Energy
 	player_stats_label = $PlayerStats
 	apply_button = $ApplyButton
-	focus_button = $FocusButton
+	#focus_button = $FocusButton
 	
 	# Подключение сигналов
 	EventBus.update_log.connect(update_log)
 	EventBus.update_battle_ui.connect(update_energy)
 	EventBus.update_battle_ui.connect(update_stats)
 	EventBus.update_battle_ui.connect(update_dice_tooltip)
-	EventBus.update_battle_ui.connect(update_focus)
+	#EventBus.update_battle_ui.connect(update_focus)
 
 ## Добавляет новую запись в лог боя
 func update_log(new_line: String):
@@ -58,7 +62,7 @@ func update_stats():
 func create_enemies(enemies: Array[Enemy], select_target_btn: Callable):
 	var i = 0
 	for enemy in enemies:
-		var enemy_ui = preload("res://scenes/Battle room/enemy_ui.tscn").instantiate()
+		var enemy_ui = preload("res://scenes/rooms/Battle room/enemy_ui.tscn").instantiate()
 		enemy_ui.enemy = enemy
 		if i == 0: enemy_ui.select()
 		enemy_ui.selected.connect(select_target_btn.bind(i))
@@ -72,7 +76,7 @@ func create_dice(die_roll: Callable):
 	
 	for i in range(button_count):
 		# Создаем экземпляр кнопки из префаба
-		var button = preload("res://scenes/Battle room/die_ui.tscn").instantiate()
+		var button: DieUI = preload("res://scenes/UI/die_ui.tscn").instantiate()
 		button.name = "DieBtn%d" % i
 		button.text = "Кость %d" % i
 		# Подключаем сигнал нажатия с передачей индекса кости
@@ -86,7 +90,7 @@ func connect_apply_button(callback: Callable):
 func connect_focus_button(callback: Callable):
 	$FocusButton.pressed.connect(callback)
 
-## Обновляет описание кубиков
+## Обновляет описания кубиков
 func update_dice_tooltip():
 	var i = 0
 	for die in player.dice:

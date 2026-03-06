@@ -64,6 +64,7 @@ func generate_map() -> Dictionary:
 	return map_nodes
 
 # Определение типа узла
+@warning_ignore("unused_parameter")
 func _get_node_type(level: int, pos: int, width: int) -> NodeType:
 	if level == 0:
 		return NodeType.BATTLE

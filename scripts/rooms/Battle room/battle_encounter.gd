@@ -3,7 +3,7 @@
 # Он должен управлять UI и циклом боя через BattleManager
 # Нужно понемногу делегировать задачи в соответствующие классы
 class_name BattleEncounter
-extends Node
+extends Control
 
 # Создаем экземпляры игрока и врага
 var player: Player = GameManager.player
@@ -21,6 +21,7 @@ var battle: BattleManager = BattleManager.new(enemies)
 var UI: BattleUI = $BattleUI
 
 func _ready():
+	print("BattleEncounter")
 	# Создаем UI элементы
 	UI.create_dice(die_select)
 	UI.create_enemies(enemies, select_target_btn)
@@ -42,13 +43,13 @@ func show_winner(winner: String):
 
 # Обрабатывает бросок конкретной кости игроком
 func die_select(i: int):
-	if UI.is_focus_select:
+	if UI.focus_selected:
 		battle.reset_die(i)
 	else:
 		# Просим BattleManager обработать бросок
 		battle.process_player_roll(i)
-		# Обновляем показатели после броска
-		EventBus.update_battle_ui.emit()
+	# Обновляем показатели после броска
+	EventBus.update_battle_ui.emit()
 
 # Установка текущей цели игрока
 # Устанавливается по сигналу кнопки

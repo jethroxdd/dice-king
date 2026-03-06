@@ -45,7 +45,7 @@ func roll() -> RollResult:
 	remain_faces.erase(result)
 	# Если доступные стороны кончились - восстановить его
 	if remain_faces.is_empty():
-		_reset_remaining_faces()
+		reset_remaining_faces()
 	return RollResult.new(result, rune)
 
 ## Получить количество граней кости[br]

@@ -5,6 +5,8 @@ func set_data(data: Array):
 	var die_scene: PackedScene
 	var sides = data[0]
 	match(sides):
+		4:
+			die_scene = load("res://scenes/UI/ToolTip/dice/tooltip_d4.tscn")
 		6:
 			die_scene = load("res://scenes/UI/ToolTip/dice/tooltip_d6.tscn")
 		_:

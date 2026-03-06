@@ -22,6 +22,7 @@ func remove_item():
 		current_item.queue_free()
 	current_item = null
 
+@warning_ignore("unused_parameter")
 func can_drop_item(item):
 	var hover = Methods.is_mouse_over_control(self)
 	return hover

@@ -1,23 +1,25 @@
 [gd_scene load_steps=3 format=3 uid="uid://bblmvmvjjsbvn"]
 
-[ext_resource type="Script" uid="uid://ny0bquev67cx" path="res://scripts/ui/tooltip/tooltip_d6.gd" id="1_5acgm"]
-[ext_resource type="Texture2D" uid="uid://c1agn6h8usqnn" path="res://assets/sprites/dice/d6.png" id="2_30q6f"]
+[ext_resource type="Script" uid="uid://bwcwsht6t4f52" path="res://scripts/ui/tooltip/tooltip_d_4.gd" id="1_5acgm"]
+[ext_resource type="Texture2D" uid="uid://bfckixm3wxaqv" path="res://assets/sprites/dice/d4.png" id="2_5acgm"]
 
-[node name="TooltipD6" type="Control"]
+[node name="TooltipD4" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_5acgm")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
-offset_right = 482.0
-offset_bottom = 363.0
+offset_right = 264.0
+offset_bottom = 232.0
 
 [node name="DieSprite" type="TextureRect" parent="."]
 layout_mode = 0
-offset_right = 482.0
-offset_bottom = 363.0
-texture = ExtResource("2_30q6f")
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 261.0
+offset_bottom = 229.0
+texture = ExtResource("2_5acgm")
 
 [node name="1" type="CenterContainer" parent="DieSprite"]
 layout_mode = 1
@@ -26,10 +28,10 @@ anchor_left = 0.37300003
 anchor_top = 0.5
 anchor_right = 0.37300003
 anchor_bottom = 0.5
-offset_left = 0.21398926
-offset_top = -1.5
-offset_right = 0.21398926
-offset_bottom = -1.5
+offset_left = 31.39299
+offset_top = -41.5
+offset_right = 31.39299
+offset_bottom = -41.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
@@ -41,10 +43,10 @@ anchor_left = 0.37300003
 anchor_top = 0.165
 anchor_right = 0.37300003
 anchor_bottom = 0.165
-offset_left = 0.21398926
-offset_top = 0.10499573
-offset_right = 0.21398926
-offset_bottom = 0.10499573
+offset_left = -32.60701
+offset_top = 2.5449982
+offset_right = -32.60701
+offset_bottom = 2.5449982
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
@@ -56,10 +58,10 @@ anchor_left = 0.124000005
 anchor_top = 0.49600002
 anchor_right = 0.124000005
 anchor_bottom = 0.49600002
-offset_left = 0.23199844
-offset_top = -0.04800415
-offset_right = 0.23199844
-offset_bottom = -0.04800415
+offset_left = 157.884
+offset_top = -74.592
+offset_right = 157.884
+offset_bottom = -74.592
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(2, 2)
@@ -71,40 +73,10 @@ anchor_left = 0.62200004
 anchor_top = 0.5
 anchor_right = 0.62200004
 anchor_bottom = 0.5
-offset_left = 0.19598389
-offset_top = -1.5
-offset_right = 0.19598389
-offset_bottom = -1.5
+offset_left = -33.098007
+offset_top = 38.5
+offset_right = -33.098007
+offset_bottom = 38.5
 grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2, 2)
-
-[node name="5" type="CenterContainer" parent="DieSprite"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.37300003
-anchor_top = 0.82600003
-anchor_right = 0.37300003
-anchor_bottom = 0.82600003
-offset_left = 0.21398926
-offset_top = 0.1619873
-offset_right = 0.21398926
-offset_bottom = 0.1619873
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2, 2)
-
-[node name="6" type="CenterContainer" parent="DieSprite"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.87100005
-anchor_top = 0.5
-anchor_right = 0.87100005
-anchor_bottom = 0.5
-offset_left = 0.17797852
-offset_top = -1.5
-offset_right = 0.17797852
-offset_bottom = -1.5
-grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(2, 2)

@@ -84,7 +84,6 @@ func reset_die(die_inedx: int):
 		player.dice[die_inedx].reset_remaining_faces()
 		player.focus -= 1
 		EventBus.update_log.emit("Использован фокус")
-		EventBus.update_battle_ui.emit()
 	else:
 		EventBus.update_log.emit("Фокусы кончились")
 
