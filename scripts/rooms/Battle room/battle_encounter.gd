@@ -21,7 +21,6 @@ var battle: BattleManager = BattleManager.new(enemies)
 var UI: BattleUI = $BattleUI
 
 func _ready():
-	print("BattleEncounter")
 	# Создаем UI элементы
 	UI.create_dice(die_select)
 	UI.create_enemies(enemies, select_target_btn)
@@ -45,6 +44,7 @@ func show_winner(winner: String):
 func die_select(i: int):
 	if UI.focus_selected:
 		battle.reset_die(i)
+		UI.focus_selected = false
 	else:
 		# Просим BattleManager обработать бросок
 		battle.process_player_roll(i)

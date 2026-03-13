@@ -1,3 +1,4 @@
+@warning_ignore_start("unused_parameter")
 class_name BurnRune
 extends BaseRune
 func _init():
@@ -7,12 +8,12 @@ func _init():
 	self.tags = ["shield", "defence", "shop", "chest", "common"]
 	self.icon_path = "res://assets/sprites/icons/burn.png"
 
-func calculate(face: int):
-	return face+1
+func calculate(value: int):
+	return value
 
-func apply(_source: Entity, target: Entity, face: int):
-		target.add_effect(BurnEffect.new(calculate(face)))
-		EventBus.update_log.emit("%s %s" % [target.name, _get_log_text(face)])
+func apply(source: Entity, target: Entity, value: int):
+		target.add_effect(BurnEffect.new(calculate(value)))
+		EventBus.update_log.emit("%s %s" % [target.name, _get_log_text(value)])
 
 func get_description(face: int):
 	return "Горение: %d" % calculate(face)

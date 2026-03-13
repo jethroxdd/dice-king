@@ -6,7 +6,9 @@ var sides: int = 0
 
 @onready
 var tooltip_instance = $Tooltip
-var mouse_inside := false
+var mouse_inside: bool:
+	get:
+		return Methods.is_mouse_over_control(self)
 var timer: Timer
 
 func _ready():
@@ -21,15 +23,17 @@ func _ready():
 	mouse_filter = MOUSE_FILTER_STOP
 
 func _process(_delta):
-	if Methods.is_mouse_over_control(self):
-		if not mouse_inside:
-			_start_timer_with_check()
-		mouse_inside = true
-	else:
-		if mouse_inside:
-			timer.stop()
-			_hide_tooltip()
-		mouse_inside = false
+	if not mouse_inside:
+		_hide_tooltip()
+	#if Methods.is_mouse_over_control(self):
+		#if not mouse_inside:
+			#_start_timer_with_check()
+		#mouse_inside = true
+	#else:
+		#if mouse_inside:
+			#timer.stop()
+			#_hide_tooltip()
+		#mouse_inside = false
 		
 
 func _gui_input(event: InputEvent):
@@ -47,7 +51,7 @@ func set_tooltip_data(data):
 	self.tooltip_data = data
 
 func _show_tooltip():
-	if not mouse_inside:
+	if not mouse_inside or Global.is_die_tooltip_showed:
 		return  # Мышь могла уйти за время таймера
 	
 	# Создаём тултип, если его нет
@@ -59,7 +63,9 @@ func _show_tooltip():
 		# Позиционируем возле мыши (можно скорректировать)
 		tooltip_instance.global_position = get_global_mouse_position() + Vector2(10, 10)
 		tooltip_instance.show()
+		Global.is_die_tooltip_showed = true
 
 func _hide_tooltip():
 	if tooltip_instance:
 		tooltip_instance.hide()
+		Global.is_die_tooltip_showed = false

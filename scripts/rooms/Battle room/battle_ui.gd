@@ -14,6 +14,8 @@ var enemies_nodes: Array:
 var focus_selected: bool:
 	get:
 		return $FocusButton.button_pressed
+	set(pressed):
+		$FocusButton.button_pressed = false
 
 var log_label: RichTextLabel
 var log_text: String = ""
@@ -27,14 +29,30 @@ func _ready() -> void:
 	energy_label = $Energy
 	player_stats_label = $PlayerStats
 	apply_button = $ApplyButton
-	#focus_button = $FocusButton
+	focus_button = $FocusButton
 	
 	# Подключение сигналов
 	EventBus.update_log.connect(update_log)
 	EventBus.update_battle_ui.connect(update_energy)
 	EventBus.update_battle_ui.connect(update_stats)
 	EventBus.update_battle_ui.connect(update_dice_tooltip)
-	#EventBus.update_battle_ui.connect(update_focus)
+	EventBus.update_battle_ui.connect(update_focus)
+	
+	# Очистка контейнеров и лога
+	_clear_dice()
+	_clear_enemies()
+	_clear_logs()
+
+func _clear_dice():
+	for die_ui in dice_nodes:
+		die_ui.queue_free()
+
+func _clear_enemies():
+	for enemy_ui in enemies_nodes:
+		enemy_ui.queue_free()
+
+func _clear_logs():
+	log_label.text = ""
 
 ## Добавляет новую запись в лог боя
 func update_log(new_line: String):
@@ -48,7 +66,6 @@ func update_energy():
 ## Обновляет отображение фокуса игрока
 func update_focus():
 	focus_button.text = "Фокус: %d" % player.focus
-	focus_button.button_pressed = false
 
 ## Обновляет отображение статистики персонажей
 func update_stats():

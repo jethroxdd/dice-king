@@ -12,10 +12,12 @@ var sides: int:
 	get:
 		return get_sides()
 
-## Массив рун на каждой грани
-var faces: Array[BaseRune] = [] # Руны на каждой грани
+## Массив значений на сторонах
+var values: Array[int] = []
+
+var _faces: Array[DieFace] = []
 ## Массив оставшихся рун
-var remain_faces: Array[int] = []
+var remain_faces: Array = []
 
 ## Конструктор кости[br]
 ## [br]
@@ -27,11 +29,16 @@ var remain_faces: Array[int] = []
 ## Если [param faces_list] короче чем [param num_sides], оставшиеся грани заполняются [EmptyRune][br]
 ## Если [param faces_list] пуст, все грани инициализируются [EmptyRune]
 func _init(num_sides: int, faces_list: Array = []):
+	if not num_sides in [4, 6, 8, 10, 12, 20]:
+		push_error("Incorrect die size")
 	_sides = num_sides
-	faces.resize(sides)
-	# Инициализируем пустыми эффектами
+	_faces.resize(sides)
+	
+	# Инициализируем стороны
 	for i in range(sides):
-		faces[i] = faces_list[i] if i < len(faces_list) and not faces_list.is_empty() else EmptyRune.new()
+		# Добавляем стороны с рунами из списка
+		# Заполняем пустыми, если список короче кол-ва сторон или он пуст
+		_faces[i] = DieFace.new(i, i+1, i+1, faces_list[i]) if i < len(faces_list) and not faces_list.is_empty() else DieFace.new(i, i+1, i+1, EmptyRune.new())
 	reset_remaining_faces()
 
 ## Бросить кость[br]
@@ -39,14 +46,15 @@ func _init(num_sides: int, faces_list: Array = []):
 ## [b]Возвращает:[/b] [code]RollResult[/code] - Класс данных с результатами броска:[br]
 func roll() -> RollResult:
 	# Случайная грань из доступных
-	var result = remain_faces[randi() % len(remain_faces)]
-	var rune = faces[result]
+	var face_idx = remain_faces[randi() % len(remain_faces)]
+	var rune = _faces[face_idx].rune
+	var value = _faces[face_idx].value
 	# Убрать только что выпавшую сторону из списка доступных
-	remain_faces.erase(result)
+	remain_faces.erase(face_idx)
 	# Если доступные стороны кончились - восстановить его
 	if remain_faces.is_empty():
 		reset_remaining_faces()
-	return RollResult.new(result, rune)
+	return RollResult.new(face_idx, value, rune)
 
 ## Получить количество граней кости[br]
 ## [br]
@@ -56,15 +64,12 @@ func get_sides() -> int:
 
 ## Сделать доступными все стороны
 func reset_remaining_faces():
-	for i in range(sides):
-		remain_faces.append(i)
+	remain_faces = range(sides)
 
 ## Вычисляемое свойство[br]
 ## Возвращает: кол-во сторон и [class TooltipData][br].
 func get_tooltip_data() -> Array:
 	var tooltip_data: TooltipData = TooltipData.new()
-	var i = 0
-	for face in faces:
-		tooltip_data.add_face(i, i in remain_faces, face.calculate(i), face.icon_path)
-		i += 1
+	for face in _faces:
+		tooltip_data.add_face(face.idx, face.idx in remain_faces, face.rune.calculate(face.value), face.rune.icon_path)
 	return [sides, tooltip_data]

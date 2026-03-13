@@ -34,7 +34,6 @@ offset_right = 31.39299
 offset_bottom = -41.5
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(2, 2)
 
 [node name="2" type="CenterContainer" parent="DieSprite"]
 layout_mode = 1
@@ -49,7 +48,6 @@ offset_right = -32.60701
 offset_bottom = 2.5449982
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(2, 2)
 
 [node name="3" type="CenterContainer" parent="DieSprite"]
 layout_mode = 1
@@ -64,7 +62,6 @@ offset_right = 157.884
 offset_bottom = -74.592
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(2, 2)
 
 [node name="4" type="CenterContainer" parent="DieSprite"]
 layout_mode = 1
@@ -79,4 +76,43 @@ offset_right = -33.098007
 offset_bottom = 38.5
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(2, 2)
+
+[node name="1" type="Label" parent="."]
+layout_mode = 0
+offset_left = 125.0
+offset_top = 17.0
+offset_right = 137.0
+offset_bottom = 45.0
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 20
+text = "1"
+
+[node name="2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 3.0
+offset_right = 35.0
+offset_bottom = 31.0
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 20
+text = "2"
+
+[node name="3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 225.0
+offset_top = 3.0
+offset_right = 237.0
+offset_bottom = 31.0
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 20
+text = "3"
+
+[node name="4" type="Label" parent="."]
+layout_mode = 0
+offset_left = 124.0
+offset_top = 183.0
+offset_right = 136.0
+offset_bottom = 211.0
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 20
+text = "4"

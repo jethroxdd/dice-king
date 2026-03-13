@@ -14,4 +14,4 @@ script = ExtResource("1_ib65w")
 [node name="Tooltip" parent="." instance=ExtResource("2_4dc6c")]
 visible = false
 layout_mode = 0
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.75, 0.75)

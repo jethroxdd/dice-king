@@ -13,7 +13,7 @@ func _ready():
 	add_default_dice()
 
 func add_default_dice():
-	var attack_die = Die.new(6, [PhysicalDamageRune.new(), PhysicalDamageRune.new(), PhysicalDamageRune.new(), PhysicalDamageRune.new(), PhysicalDamageRune.new(), PhysicalDamageRune.new()])
+	var attack_die = Die.new(6, [PhysicalDamageRune.new(), PhysicalDamageRune.new(), PhysicalDamageRune.new(), PhysicalDamageRune.new(), PhysicalDamageRune.new()])
 	var shield_die = Die.new(6, [ShieldRune.new(), ShieldRune.new(), ShieldRune.new(), ShieldRune.new(), ShieldRune.new(), ShieldRune.new()])
 	var poison_die = Die.new(4, [PoisonRune.new(), PoisonRune.new(), PoisonRune.new(), PoisonRune.new()])
 	var fire_die = Die.new(4, [BurnRune.new(), BurnRune.new(), BurnRune.new(), BurnRune.new()])

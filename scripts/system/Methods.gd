@@ -1,7 +1,7 @@
 extends Node
 
 func is_mouse_over_control(control: Control) -> bool:
-		# Check if control is valid and visible
+	# Check if control is valid and visible
 	if not control or not control.visible or not control.is_inside_tree():
 		return false
 	

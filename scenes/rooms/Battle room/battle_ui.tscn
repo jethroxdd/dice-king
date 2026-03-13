@@ -28,7 +28,7 @@ offset_left = 504.0
 offset_top = 288.0
 offset_right = 648.0
 offset_bottom = 319.0
-text = "Apply"
+text = "Готов"
 
 [node name="FocusButton" type="Button" parent="."]
 layout_mode = 0
@@ -37,7 +37,7 @@ offset_top = 248.0
 offset_right = 648.0
 offset_bottom = 279.0
 toggle_mode = true
-text = "Focus"
+text = "Фокус: %d"
 
 [node name="DiceContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -87,6 +87,6 @@ offset_right = 29.0
 offset_bottom = 19.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "energy"
+text = "энергия: %d"
 horizontal_alignment = 1
 vertical_alignment = 1

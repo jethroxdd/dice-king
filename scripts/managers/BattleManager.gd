@@ -102,7 +102,7 @@ func process_player_roll(die_index: int):
 	if roll_result.is_default():
 		return
 		
-	roll_result.rune.apply(player, target, roll_result.face)
+	roll_result.rune.apply(player, target, roll_result.value)
 
 ## Обработка хода противника[br]
 ## [br]

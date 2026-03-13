@@ -1,3 +1,4 @@
+@warning_ignore_start("unused_parameter")
 class_name ShieldRune
 extends BaseRune
 func _init():
@@ -7,15 +8,15 @@ func _init():
 	self.tags = ["shield", "defence", "shop", "chest", "common"]
 	self.icon_path = "res://assets/sprites/icons/shield.png"
 
-func calculate(face: int):
-	return face + 1
+func calculate(value: int):
+	return value
 
-func apply(source: Entity, _target: Entity, face: int):
-	source.take_shield(calculate(face))
-	EventBus.update_log.emit("%s %s" % [source.name, _get_log_text(face)])
+func apply(source: Entity, target: Entity, value: int):
+	source.take_shield(calculate(value))
+	EventBus.update_log.emit("%s %s" % [source.name, _get_log_text(value)])
 
-func get_description(face: int):
-	return "Щит: %d" % calculate(face)
+func get_description(value: int):
+	return "Щит: %d" % calculate(value)
 
-func _get_log_text(face):
-	return "получил %d щита" % calculate(face)
+func _get_log_text(value):
+	return "получил %d щита" % calculate(value)

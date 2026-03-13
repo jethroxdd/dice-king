@@ -20,10 +20,10 @@ config/icon="res://icon.svg"
 GameManager="*res://scripts/managers/GameManager.gd"
 Methods="*res://scripts/system/Methods.gd"
 GameState="*res://scripts/managers/GameState.gd"
-EventBus="*res://scripts/managers/EventBus.gd"
+EventBus="*res://scripts/system/EventBus.gd"
+Global="*res://scripts/system/Global.gd"
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

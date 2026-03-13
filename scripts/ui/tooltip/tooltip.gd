@@ -1,6 +1,11 @@
 extends Control
 class_name Tooltip
 
+func _process(_delta: float) -> void:
+	if Methods.is_mouse_over_control(self):
+		hide()
+		Global.is_die_tooltip_showed = false
+
 func set_data(data: Array):
 	var die_scene: PackedScene
 	var sides = data[0]

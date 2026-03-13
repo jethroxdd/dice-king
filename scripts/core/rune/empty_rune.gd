@@ -1,3 +1,4 @@
+@warning_ignore_start("unused_parameter")
 class_name EmptyRune
 extends BaseRune
 func _init():
@@ -7,14 +8,14 @@ func _init():
 	self.tags = ["empty"]
 	self.icon_path = "res://assets/sprites/icons/empty.png"
 
-func calculate(_face: int):
+func calculate(value: int):
 	return 0
 
-func apply(_source: Entity, _target: Entity, _face: int):
-	EventBus.update_log.emit(_get_log_text(_face))
+func apply(source: Entity, target: Entity, value: int):
+	EventBus.update_log.emit(_get_log_text(value))
 
-func get_description(_face: int):
+func get_description(value: int):
 	return "Пустой слот руны"
 
-func _get_log_text(_face) -> String:
+func _get_log_text(value) -> String:
 	return "Ничего не произошло"

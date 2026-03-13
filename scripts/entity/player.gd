@@ -32,13 +32,13 @@ func take_damage(source: Entity, damage: int) -> int:
 func can_roll() -> bool:
 	return energy > 0
 
-func roll_die(die_index: int) -> RollResult:
+func roll_die(die_idx: int) -> RollResult:
 	if not can_roll():
 		return RollResult.default()
-	if die_index < 0 or die_index >= dice.size():
+	if die_idx < 0 or die_idx >= dice.size():
 		return RollResult.default()
 	energy -= 1
-	return dice[die_index].roll()
+	return dice[die_idx].roll()
 
 func add_die(die: Die):
 	dice.append(die)
