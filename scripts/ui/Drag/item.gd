@@ -4,16 +4,13 @@ class_name InvItem
 var current_slot = null
 var is_dragged = false
 var icon_offset= Vector2(0, 0)
+var _rune: BaseRune
+
+@onready
+var texture: TextureRect = $Icon/Texture
 
 signal drag_start
 signal drag_end
-
-const icons = [
-	"res://assets/sprites/icons/shield.png",
-	"res://assets/sprites/icons/sword.png",
-	"res://assets/sprites/icons/poison.png",
-	"res://assets/sprites/icons/burn.png"
-]
 
 func _ready():
 	drag_start.connect(GameManager.drag_manager._on_drag_start.bind(self))
@@ -21,8 +18,7 @@ func _ready():
 
 func _process(_delta):
 	if is_dragged:
-		$Icon.global_position = get_global_mouse_position() - icon_offset
-	$Icon/Border.visible = Methods.is_mouse_over_control($Icon)	
+		$Icon.global_position = get_global_mouse_position() - 0.5*size #- icon_offset
 
 func _on_button_button_down():
 	is_dragged = true
@@ -36,8 +32,13 @@ func _on_button_button_up():
 	$Icon.position = Vector2(0, 0)
 	drag_end.emit()
 
-func set_icon(path: String):
-	$Icon/Texture.texture = load(path)
+func set_data(rune: BaseRune):
+	_rune = rune
+	if _rune:
+		$Icon/Texture.texture = load(_rune.icon_path)
+
+func get_rune() -> BaseRune:
+	return _rune
 
 func remove():
 	queue_free()

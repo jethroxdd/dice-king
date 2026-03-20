@@ -1,0 +1,249 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5hql1brun04o"]
+
+[ext_resource type="Script" uid="uid://b3gcipsiw20v3" path="res://scripts/rooms/ForgeRoom/die_forge.gd" id="1_rhr2v"]
+[ext_resource type="PackedScene" uid="uid://dfpogmfgqdhj3" path="res://scenes/UI/Drag/slot.tscn" id="1_rokoi"]
+[ext_resource type="PackedScene" uid="uid://dcbbu1k2rhxy" path="res://scenes/rooms/DieForge/forge_dice.tscn" id="2_ubk1j"]
+[ext_resource type="Texture2D" uid="uid://b037kj56uxkwl" path="res://assets/sprites/slot_background.png" id="3_ubk1j"]
+
+[node name="DieForge" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rhr2v")
+
+[node name="Workplace" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.22200002
+anchor_top = 0.20400001
+anchor_right = 0.77800006
+anchor_bottom = 0.79600006
+offset_left = 0.25598145
+offset_top = -0.19200134
+offset_right = -0.25604248
+offset_bottom = 0.19195557
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ForgeDice" parent="Workplace" instance=ExtResource("2_ubk1j")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+die_type = 1
+
+[node name="Runes" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.799
+anchor_top = 0.012
+anchor_right = 0.99300003
+anchor_bottom = 0.91400003
+offset_left = 7.552002
+offset_top = 0.22399998
+offset_right = 0.063964844
+offset_bottom = -24.272034
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Runes"]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="GridContainer" type="GridContainer" parent="Runes/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+columns = 3
+metadata/_edit_lock_ = true
+
+[node name="Slot1" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot2" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot3" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot4" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot5" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot6" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot7" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot8" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot9" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot10" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot11" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot12" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot13" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot14" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot15" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot16" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot17" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot18" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot19" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot20" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot21" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot22" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot23" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Slot24" parent="Runes/ScrollContainer/GridContainer" instance=ExtResource("1_rokoi")]
+layout_mode = 2
+
+[node name="Description" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.007
+anchor_top = 0.012
+anchor_right = 0.194
+anchor_bottom = 0.98800004
+offset_left = -0.06400013
+offset_top = 0.22399998
+offset_right = 0.5119934
+offset_bottom = -0.22399902
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Description"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_ubk1j")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Description/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -276.0
+offset_right = 96.0
+offset_bottom = 276.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Dice" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.22200002
+anchor_top = 0.83800006
+anchor_right = 0.77800006
+anchor_bottom = 0.98600006
+offset_left = 0.25598145
+offset_top = -0.024047852
+offset_right = -0.25604248
+offset_bottom = 0.07196045
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Dice"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -304.0
+offset_top = -33.0
+offset_right = 304.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Artifacts" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.22200002
+anchor_top = 0.012
+anchor_right = 0.77800006
+anchor_bottom = 0.148
+offset_left = 0.25598145
+offset_top = 0.22399998
+offset_right = -0.25604248
+offset_bottom = 0.09600067
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Artifacts"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -304.0
+offset_top = -28.0
+offset_right = 304.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Apply" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.80600005
+anchor_top = 0.88900006
+anchor_right = 0.99300003
+anchor_bottom = 0.98800004
+offset_left = -0.51208496
+offset_top = -0.072021484
+offset_right = 0.063964844
+offset_bottom = -0.22399902
+grow_horizontal = 0
+grow_vertical = 0
+text = "Готово"

@@ -4,7 +4,7 @@ extends BaseRune
 func _init():
 	self.name = "Физический урон"
 	self.rune_type = "physical_damage"
-	self.description = "Руна физ. урона: 1*face"
+	self.description = "Руна физ. урона равного стороне."
 	self.tags = ["physical_damage", "offense", "shop", "chest", "common"]
 	self.icon_path = "res://assets/sprites/icons/physical_damage.png"
 

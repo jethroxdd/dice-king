@@ -4,7 +4,7 @@ extends BaseRune
 func _init():
 	self.name = "Щит"
 	self.rune_type = "shield"
-	self.description = "Дает щит: 1+face"
+	self.description = "Дает щит равный стороне."
 	self.tags = ["shield", "defence", "shop", "chest", "common"]
 	self.icon_path = "res://assets/sprites/icons/shield.png"
 

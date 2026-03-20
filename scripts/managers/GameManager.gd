@@ -21,3 +21,5 @@ func add_default_dice():
 	player.add_die(shield_die)
 	player.add_die(poison_die)
 	player.add_die(fire_die)
+	player.add_rune(BurnRune.new())
+	player.add_rune(PoisonRune.new())

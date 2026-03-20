@@ -16,8 +16,9 @@ var sides: int:
 var values: Array[int] = []
 
 var _faces: Array[DieFace] = []
+
 ## Массив оставшихся рун
-var remain_faces: Array = []
+var availible: Array = []
 
 ## Конструктор кости[br]
 ## [br]
@@ -39,21 +40,21 @@ func _init(num_sides: int, faces_list: Array = []):
 		# Добавляем стороны с рунами из списка
 		# Заполняем пустыми, если список короче кол-ва сторон или он пуст
 		_faces[i] = DieFace.new(i, i+1, i+1, faces_list[i]) if i < len(faces_list) and not faces_list.is_empty() else DieFace.new(i, i+1, i+1, EmptyRune.new())
-	reset_remaining_faces()
+	reset_availible()
 
 ## Бросить кость[br]
 ## [br]
 ## [b]Возвращает:[/b] [code]RollResult[/code] - Класс данных с результатами броска:[br]
 func roll() -> RollResult:
 	# Случайная грань из доступных
-	var face_idx = remain_faces[randi() % len(remain_faces)]
+	var face_idx = get_rand_availible()
 	var rune = _faces[face_idx].rune
 	var value = _faces[face_idx].value
 	# Убрать только что выпавшую сторону из списка доступных
-	remain_faces.erase(face_idx)
+	remove_availible(face_idx)
 	# Если доступные стороны кончились - восстановить его
-	if remain_faces.is_empty():
-		reset_remaining_faces()
+	if availible.is_empty():
+		reset_availible()
 	return RollResult.new(face_idx, value, rune)
 
 ## Получить количество граней кости[br]
@@ -62,14 +63,27 @@ func roll() -> RollResult:
 func get_sides() -> int:
 	return _sides
 
+func get_rand_availible() -> int:
+	return availible[randi() % len(availible)]
+
+func add_availible(idx):
+	if idx in availible:
+		push_warning("Попытка добавить существующую доступную сторону")
+	availible.append(idx)
+
+func remove_availible(idx):
+	if not idx in availible:
+		push_error("Выбранной стороны нет в списке доступных")
+	availible.erase(idx)
+
 ## Сделать доступными все стороны
-func reset_remaining_faces():
-	remain_faces = range(sides)
+func reset_availible():
+	availible = range(sides)
 
 ## Вычисляемое свойство[br]
 ## Возвращает: кол-во сторон и [class TooltipData][br].
 func get_tooltip_data() -> Array:
 	var tooltip_data: TooltipData = TooltipData.new()
 	for face in _faces:
-		tooltip_data.add_face(face.idx, face.idx in remain_faces, face.rune.calculate(face.value), face.rune.icon_path)
+		tooltip_data.add_face(face.idx, face.idx in availible, face.rune.calculate(face.value), face.rune.icon_path)
 	return [sides, tooltip_data]

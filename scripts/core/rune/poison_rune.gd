@@ -4,7 +4,7 @@ extends BaseRune
 func _init():
 	self.name = "Яд"
 	self.rune_type = "poison"
-	self.description = "Накладывает яд: 2"
+	self.description = "Накладывает яд равный стороне."
 	self.tags = ["poison", "offense", "shop", "chest", "epic"]
 	self.icon_path = "res://assets/sprites/icons/poison.png"
 

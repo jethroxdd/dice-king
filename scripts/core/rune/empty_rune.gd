@@ -4,7 +4,7 @@ extends BaseRune
 func _init():
 	self.name = "Пусто"
 	self.rune_type = "empty"
-	self.description = "Пустой слот руны"
+	self.description = "Empty rune."
 	self.tags = ["empty"]
 	self.icon_path = "res://assets/sprites/icons/empty.png"
 

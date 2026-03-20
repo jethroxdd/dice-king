@@ -3,8 +3,8 @@ extends RefCounted
 
 var current_item: InvItem = null
 var swap_item: InvItem = null
-var current_slot: InvSlot = null
-var slots: Array[InvSlot] = []
+var current_slot: BaseSlot = null
+var slots: Array[BaseSlot] = []
 
 func add_slot(slot):
 	slots.append(slot)
@@ -17,7 +17,7 @@ func _on_drag_start(item):
 	current_slot = item.current_slot
 
 func _on_drag_end(item):
-	for slot: InvSlot in slots:
+	for slot: BaseSlot in slots:
 		if slot.can_drop_item(current_item):
 			if slot.current_item:
 				swap_item = slot.current_item.duplicate()

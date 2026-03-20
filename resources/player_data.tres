@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PlayerData" load_steps=2 format=3 uid="uid://cmbhnixtotawm"]
+
+[ext_resource type="Script" uid="uid://c5kew4wy7ucmw" path="res://resources/player_resource.gd" id="1_cylk5"]
+
+[resource]
+script = ExtResource("1_cylk5")
+health = 50
+metadata/_custom_type_script = "uid://c5kew4wy7ucmw"

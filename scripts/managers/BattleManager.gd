@@ -81,7 +81,7 @@ func end_enemies_round():
 
 func reset_die(die_inedx: int):
 	if player.focus > 0:
-		player.dice[die_inedx].reset_remaining_faces()
+		player.dice[die_inedx].reset_availible()
 		player.focus -= 1
 		EventBus.update_log.emit("Использован фокус")
 	else:

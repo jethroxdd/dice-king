@@ -8,12 +8,21 @@ var max_focus: int
 var dice: Array[Die] = []
 var artifacts: Array = []
 
+const max_inv = 24
+var inventory: Inventory = Inventory.new(max_inv)
+
 func _init():
 	super("Player", 100)
 	max_energy = 3
 	energy = max_energy
 	max_focus = 3
 	focus = max_focus
+
+func add_rune(rune: BaseRune):
+	inventory.add(rune)
+
+func remove_rune(rune: BaseRune):
+	inventory.remove_first(rune)
 
 func start_round():
 	energy = max_energy

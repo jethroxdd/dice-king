@@ -23,19 +23,33 @@ text = "Здровье: $d
 Эффекты: %s"
 
 [node name="ApplyButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 504.0
-offset_top = 288.0
-offset_right = 648.0
-offset_bottom = 319.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -36.0
+offset_right = 72.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Готов"
 
 [node name="FocusButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 504.0
-offset_top = 248.0
-offset_right = 648.0
-offset_bottom = 279.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -76.0
+offset_right = 72.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 2
 toggle_mode = true
 text = "Фокус: %d"
 
@@ -55,11 +69,15 @@ grow_vertical = 2
 alignment = 1
 
 [node name="Log" type="RichTextLabel" parent="."]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 192.0
-offset_right = 368.0
-offset_bottom = 592.0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.333
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 0.21600342
+offset_right = 360.0
+offset_bottom = -32.0
+grow_vertical = 0
 scroll_following = true
 
 [node name="EnemiesContainer" type="HBoxContainer" parent="."]
